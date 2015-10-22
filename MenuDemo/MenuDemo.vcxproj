@@ -151,9 +151,10 @@
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnicodeRelease|Win32'">
-    <OutDir>.\Release_u\</OutDir>
+    <OutDir>$(ProjectDir)\..\bin\</OutDir>
     <IntDir>.\Release_u\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>$(ProjectName)_u</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnicodeRelease|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -450,7 +451,7 @@
       <Culture>0x0406</Culture>
     </ResourceCompile>
     <Link>
-      <OutputFile>../bin/MenuDemo_u.exe</OutputFile>
+      <OutputFile>$(ProjectDir)\..\bin\$(ProjectName)_u.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <ProgramDatabaseFile>.\Release_u/MenuDemo.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>

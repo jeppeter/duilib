@@ -151,9 +151,10 @@
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnicodeRelease|Win32'">
-    <OutDir>.\Release_u\</OutDir>
+    <OutDir>$(ProjectDir)\..\bin\</OutDir>
     <IntDir>.\Release_u\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>$(ProjectName)_u</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnicodeRelease|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -454,7 +455,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>comsuppw.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../bin/FlashDemo_u.exe</OutputFile>
+      <OutputFile>$(ProjectDir)\..\bin\$(ProjectName)_u.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <ProgramDatabaseFile>.\Release_u/FlashDemo.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>

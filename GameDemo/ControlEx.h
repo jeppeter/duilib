@@ -42,7 +42,7 @@ public:
                 delete _children[i]; 
         }
         NodeData& data() { return _data; }	
-        int num_children() const { return _children.size(); }
+        int num_children() const { return (int) _children.size(); }
         Node* child(int i)	{ return _children[i]; }
         Node* parent() { return ( _parent);	}
         bool has_children() const {	return num_children() > 0; }
@@ -390,7 +390,7 @@ public:
             m_dwDelayDeltaY = 0;
             m_dwDelayNum = 0;
             m_dwDelayLeft = 0;
-            ::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND)));
+            ::SetCursor(::LoadCursor(NULL, IDC_HAND));
             m_pManager->SetTimer(this, SCROLL_TIMERID, 50U);
             return;
         }
@@ -398,7 +398,7 @@ public:
         {
             if( (m_uButtonState & UISTATE_CAPTURED) != 0 ) {
                 m_uButtonState &= ~UISTATE_CAPTURED;
-                ::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE(IDC_ARROW)));
+                ::SetCursor(::LoadCursor(NULL,IDC_ARROW));
                 if( m_ptLastMouse.y != event.ptMouse.y ) {
                     m_dwDelayDeltaY = (event.ptMouse.y - m_ptLastMouse.y);
                     if( m_dwDelayDeltaY > 120 ) m_dwDelayDeltaY = 120;

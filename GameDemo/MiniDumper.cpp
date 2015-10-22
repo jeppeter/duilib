@@ -3,6 +3,9 @@
 #include <assert.h>
 #include <time.h>
 #include <tchar.h>
+
+#pragma warning(disable: 4091)
+
 #include <dbghelp.h>
 #include "miniDumper.h"
 

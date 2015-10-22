@@ -13,6 +13,7 @@
 
 using namespace DuiLib;
 
+#ifdef _M_IX86
 #ifdef _DEBUG
 #   ifdef _UNICODE
 #       pragma comment(lib, "..\\Lib\\DuiLib_ud.lib")
@@ -25,6 +26,26 @@ using namespace DuiLib;
 #   else
 #       pragma comment(lib, "..\\Lib\\DuiLib.lib")
 #   endif
+#endif
+#elif defined(_M_X64)
+
+#ifdef _DEBUG
+#   ifdef _UNICODE
+#       pragma comment(lib, "..\\Lib\\DuiLib_x64_ud.lib")
+#   else
+#       pragma comment(lib, "..\\Lib\\DuiLib_x64_d.lib")
+#   endif
+#else
+#   ifdef _UNICODE
+#       pragma comment(lib, "..\\Lib\\DuiLib_x64_u.lib")
+#   else
+#       pragma comment(lib, "..\\Lib\\DuiLib_x64.lib")
+#   endif
+#endif
+
+#else
+#error "not supported architecture"
+
 #endif
 
 #define WM_ADDLISTITEM WM_USER + 50
@@ -158,30 +179,30 @@ public:
         switch (iSubItem)
         {
         case 0:
-            _stprintf(szBuf, _T("%d"), iIndex);
+            _sntprintf_s(szBuf,sizeof(szBuf)/sizeof(szBuf[0]), _T("%d"), iIndex);
             break;
         case 1:
             {
 #ifdef _UNICODE		
-            int iLen = domain[iIndex].length();
+            int iLen =(int) domain[iIndex].length();
             LPWSTR lpText = new WCHAR[iLen + 1];
             ::ZeroMemory(lpText, (iLen + 1) * sizeof(WCHAR));
             ::MultiByteToWideChar(CP_ACP, 0, domain[iIndex].c_str(), -1, (LPWSTR)lpText, iLen) ;
-            _stprintf(szBuf, lpText);
+            _sntprintf_s(szBuf,sizeof(szBuf)/sizeof(szBuf[0]), lpText);
             delete[] lpText;
 #else
-            _stprintf(szBuf, domain[iIndex].c_str());
+            _sntprintf_s(szBuf, sizeof(szBuf) / sizeof(szBuf[0]), domain[iIndex].c_str());
 #endif
             }
             break;
         case 2:
             {
 #ifdef _UNICODE		
-            int iLen = desc[iIndex].length();
+            int iLen = (int)desc[iIndex].length();
             LPWSTR lpText = new WCHAR[iLen + 1];
             ::ZeroMemory(lpText, (iLen + 1) * sizeof(WCHAR));
             ::MultiByteToWideChar(CP_ACP, 0, desc[iIndex].c_str(), -1, (LPWSTR)lpText, iLen) ;
-            _stprintf(szBuf, lpText);
+            _sntprintf_s(szBuf, sizeof(szBuf) / sizeof(szBuf[0]), lpText);
             delete[] lpText;
 #else
             _stprintf(szBuf, desc[iIndex].c_str());
@@ -230,10 +251,10 @@ public:
         }
         else if( msg.sType == _T("itemactivate") ) 
         {
-            int iIndex = msg.pSender->GetTag();
+            int iIndex = (int)msg.pSender->GetTag();
             CDuiString sMessage = _T("Click: ");;
 #ifdef _UNICODE		
-            int iLen = domain[iIndex].length();
+            int iLen = (int)domain[iIndex].length();
             LPWSTR lpText = new WCHAR[iLen + 1];
             ::ZeroMemory(lpText, (iLen + 1) * sizeof(WCHAR));
             ::MultiByteToWideChar(CP_ACP, 0, domain[iIndex].c_str(), -1, (LPWSTR)lpText, iLen) ;

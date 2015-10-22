@@ -15,6 +15,7 @@
 
 using namespace DuiLib;
 
+#ifdef _M_IX86
 #ifdef _DEBUG
 #   ifdef _UNICODE
 #       pragma comment(lib, "..\\Lib\\DuiLib_ud.lib")
@@ -27,6 +28,26 @@ using namespace DuiLib;
 #   else
 #       pragma comment(lib, "..\\Lib\\DuiLib.lib")
 #   endif
+#endif
+#elif defined(_M_X64)
+
+#ifdef _DEBUG
+#   ifdef _UNICODE
+#       pragma comment(lib, "..\\Lib\\DuiLib_x64_ud.lib")
+#   else
+#       pragma comment(lib, "..\\Lib\\DuiLib_x64_d.lib")
+#   endif
+#else
+#   ifdef _UNICODE
+#       pragma comment(lib, "..\\Lib\\DuiLib_x64_u.lib")
+#   else
+#       pragma comment(lib, "..\\Lib\\DuiLib_x64.lib")
+#   endif
+#endif
+
+#else
+#error "not supported architecture"
+
 #endif
 
 //{{AFX_INSERT_LOCATION}}
