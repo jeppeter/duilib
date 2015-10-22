@@ -28,6 +28,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "duitut", "duitut\duitut.vcx
 		{C43DEFBE-156D-489D-83BB-D7C4A9D15D0D} = {C43DEFBE-156D-489D-83BB-D7C4A9D15D0D}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "btvmgui", "btvmgui\btvmgui.vcxproj", "{489800DD-4F6F-4D85-8CE1-7074EB850121}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -214,6 +216,20 @@ Global
 		{8ECC920A-063A-4D39-BCD3-EDF471BDE4A8}.UnicodeRelease|Win32.Build.0 = UnicodeRelease|Win32
 		{8ECC920A-063A-4D39-BCD3-EDF471BDE4A8}.UnicodeRelease|x64.ActiveCfg = UnicodeRelease|x64
 		{8ECC920A-063A-4D39-BCD3-EDF471BDE4A8}.UnicodeRelease|x64.Build.0 = UnicodeRelease|x64
+		{489800DD-4F6F-4D85-8CE1-7074EB850121}.Debug|Win32.ActiveCfg = Debug|Win32
+		{489800DD-4F6F-4D85-8CE1-7074EB850121}.Debug|Win32.Build.0 = Debug|Win32
+		{489800DD-4F6F-4D85-8CE1-7074EB850121}.Debug|x64.ActiveCfg = Debug|Win32
+		{489800DD-4F6F-4D85-8CE1-7074EB850121}.Release|Win32.ActiveCfg = Release|Win32
+		{489800DD-4F6F-4D85-8CE1-7074EB850121}.Release|Win32.Build.0 = Release|Win32
+		{489800DD-4F6F-4D85-8CE1-7074EB850121}.Release|x64.ActiveCfg = Release|Win32
+		{489800DD-4F6F-4D85-8CE1-7074EB850121}.UnicdoeDebug|Win32.ActiveCfg = Debug|Win32
+		{489800DD-4F6F-4D85-8CE1-7074EB850121}.UnicdoeDebug|Win32.Build.0 = Debug|Win32
+		{489800DD-4F6F-4D85-8CE1-7074EB850121}.UnicdoeDebug|x64.ActiveCfg = Release|Win32
+		{489800DD-4F6F-4D85-8CE1-7074EB850121}.UnicdoeDebug|x64.Build.0 = Release|Win32
+		{489800DD-4F6F-4D85-8CE1-7074EB850121}.UnicodeRelease|Win32.ActiveCfg = Release|Win32
+		{489800DD-4F6F-4D85-8CE1-7074EB850121}.UnicodeRelease|Win32.Build.0 = Release|Win32
+		{489800DD-4F6F-4D85-8CE1-7074EB850121}.UnicodeRelease|x64.ActiveCfg = Release|x64
+		{489800DD-4F6F-4D85-8CE1-7074EB850121}.UnicodeRelease|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
