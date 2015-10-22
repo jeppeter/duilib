@@ -1,30 +1,22 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.sbr
-MenuDemo/Debug/vc90.pdb
-*.idb
-QQDemo/Debug/color_skin.obj
-*.obj
-QQDemo/Debug/QQDemo.map
-*.pdb
-*.ncb
-DuiLib.suo
-*.pch
-FlashDemo/Debug/FlashDemo.map
-*.bsc
-FlashDemo/FlashDemo.vcproj.wengmq-PC.wengmq.user
+# git ls-files --others --exclude-from=.git/info/exclude
+# Lines that start with '#' are comments.
+# For a project mostly in C, the following would be a good set of
+# exclude patterns (uncomment them if you want to use them):
+# *.[oa]
+# *~
 *.user
-QQDemo/Debug/mt.dep
-*.dep
-*.map
+.DS_Store
+Build/
+UnicodeRelease/
+UnicodeDebug/
+Lib/
+/Utils
+/Lib
+.svn/
+*.suo
+*.cache
+*.aps
+*.ncb
+*.sdf
+*.opensdf
+Sln/ipch/
