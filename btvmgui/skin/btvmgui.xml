@@ -8,7 +8,7 @@
                 <Control float="true" pos="2,5,0,0" width="24" height="24" bkimage="icon.png" />
             </VerticalLayout>
             <VerticalLayout width="77"> 
-                <Button name="minbtn"   tooltip="最小化" float="true" pos="0,5,22,24"  width="23" normalimage=" file='SysBtn\MinNormal.bmp' " hotimage=" file='SysBtn\MinFocus.bmp' " focusedimage=" file='SysBtn\MinNormal.bmp' " pushedimage=" file='SysBtn\MinFocus.bmp' "/>
+                <Button name="minbtn"   tooltip="最小化" float="true" pos="22,5,44,24"  width="23" normalimage=" file='SysBtn\MinNormal.bmp' " hotimage=" file='SysBtn\MinFocus.bmp' " focusedimage=" file='SysBtn\MinNormal.bmp' " pushedimage=" file='SysBtn\MinFocus.bmp' "/>
                 <Button name="closebtn" tooltip="关闭"   float="true" pos="44,5,74,24" width="28" normalimage=" file='SysBtn\CloseNormal.bmp' " hotimage=" file='SysBtn\CloseFocus.bmp' " focusedimage=" file='SysBtn\CloseNormal.bmp' " pushedimage=" file='SysBtn\CloseFocus.bmp' "/>
             </VerticalLayout>      
         </HorizontalLayout>
