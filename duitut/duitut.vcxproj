@@ -149,7 +149,7 @@
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnicodeRelease|Win32'">
-    <OutDir>$(ProjectDir)\..\bin\</OutDir>
+    <OutDir>$(ProjectDir)\$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>$(ProjectName)_u</TargetName>
@@ -290,6 +290,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalDependencies>$(ProjectDir)\..\$(Configuration)\duilib_u.lib;user32.lib;ole32.lib;gdi32.lib;OleAut32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='UnicodeRelease|x64'">
