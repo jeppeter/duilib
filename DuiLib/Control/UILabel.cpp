@@ -62,7 +62,7 @@ namespace DuiLib
 		}
 		catch (...)
 		{
-			throw "CLabelUI::~CLabelUI";
+			//throw "CLabelUI::~CLabelUI";
 		}
 	}
 

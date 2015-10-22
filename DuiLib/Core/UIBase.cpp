@@ -292,7 +292,7 @@ UINT CWindowWnd::ShowModal()
     MSG msg = { 0 };
     while( ::IsWindow(m_hWnd) && ::GetMessage(&msg, NULL, 0, 0) ) {
         if( msg.message == WM_CLOSE && msg.hwnd == m_hWnd ) {
-            nRet = msg.wParam;
+            nRet =(UINT) msg.wParam;
             ::EnableWindow(hWndParent, TRUE);
             ::SetFocus(hWndParent);
         }
@@ -304,7 +304,7 @@ UINT CWindowWnd::ShowModal()
     }
     ::EnableWindow(hWndParent, TRUE);
     ::SetFocus(hWndParent);
-    if( msg.message == WM_QUIT ) ::PostQuitMessage(msg.wParam);
+    if( msg.message == WM_QUIT ) ::PostQuitMessage((int)msg.wParam);
     return nRet;
 }
 
