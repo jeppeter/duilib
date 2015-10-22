@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{11A20D10-E0D7-447F-A546-8E4662C115C5}</ProjectGuid>
+    <ProjectGuid>{5EEA82DD-05C7-477F-8870-942E8758BFFF}</ProjectGuid>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnicodeRelease|Win32'" Label="Configuration">
@@ -95,7 +95,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Release/MenuDemo.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Release/QQDemo.tlb</TypeLibraryName>
       <HeaderFileName />
     </Midl>
     <ClCompile>
@@ -107,7 +107,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader />
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderOutputFile>.\Release/MenuDemo.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeaderOutputFile>.\Release/QQDemo.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
       <ObjectFileName>.\Release/</ObjectFileName>
       <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
@@ -119,15 +119,15 @@
       <Culture>0x0406</Culture>
     </ResourceCompile>
     <Link>
-      <OutputFile>../bin/MenuDemo.exe</OutputFile>
+      <OutputFile>../bin/QQDemo.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <ProgramDatabaseFile>.\Release/MenuDemo.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\Release/QQDemo.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\Release/MenuDemo.bsc</OutputFile>
+      <OutputFile>.\Release/QQDemo.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -136,7 +136,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/MenuDemo.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/QQDemo.tlb</TypeLibraryName>
       <HeaderFileName />
     </Midl>
     <ClCompile>
@@ -147,7 +147,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader />
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderOutputFile>.\Debug/MenuDemo.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeaderOutputFile>.\Debug/QQDemo.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
       <ObjectFileName>.\Debug/</ObjectFileName>
       <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
@@ -161,18 +161,18 @@
       <Culture>0x0406</Culture>
     </ResourceCompile>
     <Link>
-      <OutputFile>../bin/MenuDemo_d.exe</OutputFile>
+      <OutputFile>../bin/QQDemo_d.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>.\Debug/MenuDemo.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\Debug/QQDemo.pdb</ProgramDatabaseFile>
       <GenerateMapFile>true</GenerateMapFile>
-      <MapFileName>.\Debug/MenuDemo.map</MapFileName>
+      <MapFileName>.\Debug/QQDemo.map</MapFileName>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\Debug/MenuDemo.bsc</OutputFile>
+      <OutputFile>.\Debug/QQDemo.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='UnicodeDebug|Win32'">
@@ -181,7 +181,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/MenuDemo.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/QQDemo.tlb</TypeLibraryName>
       <HeaderFileName />
     </Midl>
     <ClCompile>
@@ -192,7 +192,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader />
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderOutputFile>.\Debug_u/MenuDemo.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeaderOutputFile>.\Debug_u/QQDemo.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\Debug_u/</AssemblerListingLocation>
       <ObjectFileName>.\Debug_u/</ObjectFileName>
       <ProgramDataBaseFileName>.\Debug_u/</ProgramDataBaseFileName>
@@ -206,18 +206,18 @@
       <Culture>0x0406</Culture>
     </ResourceCompile>
     <Link>
-      <OutputFile>../bin/MenuDemo_ud.exe</OutputFile>
+      <OutputFile>../bin/QQDemo_ud.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>.\Debug_u/MenuDemo.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\Debug_u/QQDemo.pdb</ProgramDatabaseFile>
       <GenerateMapFile>true</GenerateMapFile>
-      <MapFileName>.\Debug_u/MenuDemo.map</MapFileName>
+      <MapFileName>.\Debug_u/QQDemo.map</MapFileName>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\Debug/MenuDemo.bsc</OutputFile>
+      <OutputFile>.\Debug/QQDemo.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='UnicodeRelease|Win32'">
@@ -226,7 +226,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Release/MenuDemo.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Release/QQDemo.tlb</TypeLibraryName>
       <HeaderFileName />
     </Midl>
     <ClCompile>
@@ -238,7 +238,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader />
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderOutputFile>.\Release_u/MenuDemo.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeaderOutputFile>.\Release_u/QQDemo.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\Release_u/</AssemblerListingLocation>
       <ObjectFileName>.\Release_u/</ObjectFileName>
       <ProgramDataBaseFileName>.\Release_u/</ProgramDataBaseFileName>
@@ -250,40 +250,48 @@
       <Culture>0x0406</Culture>
     </ResourceCompile>
     <Link>
-      <OutputFile>../bin/MenuDemo_u.exe</OutputFile>
+      <OutputFile>../bin/QQDemo_u.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <ProgramDatabaseFile>.\Release_u/MenuDemo.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\Release_u/QQDemo.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\Release/MenuDemo.bsc</OutputFile>
+      <OutputFile>.\Release/QQDemo.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\DuiLib\Utils\XUnzip.cpp" />
+    <ClCompile Include="chat_dialog.cpp" />
+    <ClCompile Include="ColorPicker.cpp" />
+    <ClCompile Include="color_skin.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="main_frame.cpp" />
     <ClCompile Include="StdAfx.cpp" />
-    <ClCompile Include="UICrack.cpp" />
-    <ClCompile Include="UIMenu.cpp" />
+    <ClCompile Include="UIFriends.cpp" />
+    <ClCompile Include="UIGroups.cpp" />
+    <ClCompile Include="UIListCommonDefine.cpp" />
+    <ClCompile Include="UIMicroBlog.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="chat_dialog.hpp" />
+    <ClInclude Include="ColorPicker.hpp" />
+    <ClInclude Include="color_skin.hpp" />
     <ClInclude Include="debug.hpp" />
     <ClInclude Include="main_frame.hpp" />
     <ClInclude Include="observer_impl_base.hpp" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="skin_change_event.hpp" />
     <ClInclude Include="StdAfx.h" />
-    <ClInclude Include="UICrack.h" />
-    <ClInclude Include="UIMenu.h" />
+    <ClInclude Include="UIFriends.hpp" />
+    <ClInclude Include="UIGroups.hpp" />
+    <ClInclude Include="UIListCommonDefine.hpp" />
+    <ClInclude Include="UIMicroBlog.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MenuDemo.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="res\menutest.xml" />
-    <Xml Include="res\skin.xml" />
+    <ResourceCompile Include="QQDemo.rc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DuiLib\DuiLib.vcxproj">
