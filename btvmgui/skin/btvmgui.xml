@@ -12,6 +12,22 @@
                 <Button name="closebtn" tooltip="关闭"   float="true" pos="44,5,74,24" width="28" normalimage=" file='SysBtn\CloseNormal.bmp' " hotimage=" file='SysBtn\CloseFocus.bmp' " focusedimage=" file='SysBtn\CloseNormal.bmp' " pushedimage=" file='SysBtn\CloseFocus.bmp' "/>
             </VerticalLayout>      
         </HorizontalLayout>
-        <HorizontalLayout name="HorizontalLayoutUI3" pos="0,32,800,155" width="800" height="123" bkcolor="#FFC0C0C0" />
+        <HorizontalLayout name="HorizontalLayoutUI3" pos="0,32,800,155" width="800" height="123" bkcolor="#FFC0C0C0">
+            <!-- this --->
+            <VerticalLayout width="400">
+                <HorizontalLayout height="60">
+                    <Text text="Text1" bkcolor="#FFFFDC78" align="centerwrap" width="200"/>
+                </HorizontalLayout>
+                <HorizontalLayout height="63">
+                    <Text text="Text2" bkcolor="#FFFFDC78" align="centerwrap" width="200"/>
+                </HorizontalLayout>            
+            </VerticalLayout>
+            <VerticalLayout width="400">
+                <HorizontalLayout height="60">
+                </HorizontalLayout>
+                <HorizontalLayout height="63">
+                </HorizontalLayout>            
+            </VerticalLayout>
+        </HorizontalLayout>
     </VerticalLayout>
 </Window>
