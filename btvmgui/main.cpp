@@ -1,4 +1,4 @@
-
+#include "btvmgui.h"
 
 
 
@@ -7,7 +7,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     ::CoInitialize(NULL);
     CPaintManagerUI::SetInstance(hInstance);
 
-    CFrameWnd *pFrame = new CFrameWnd(_T("btvmgui.xml"));
+    Cbtvmgui *pFrame = new Cbtvmgui(_T("btvmgui.xml"));
     pFrame->Create(NULL, _T("BTVMGUI"), UI_WNDSTYLE_FRAME, WS_EX_WINDOWEDGE);
     pFrame->ShowModal();
 

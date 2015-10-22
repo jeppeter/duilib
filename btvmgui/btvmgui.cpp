@@ -8,18 +8,18 @@ Cbtvmgui::Cbtvmgui( LPCTSTR pszXMLPath )
 }
 
 
-void CFrameWnd::Notify( TNotifyUI& msg )
+void Cbtvmgui::Notify( TNotifyUI& msg )
 {
     __super::Notify(msg);
 }
 
 
-CControlUI* CFrameWnd::CreateControl( LPCTSTR pstrClassName )
+CControlUI* Cbtvmgui::CreateControl( LPCTSTR pstrClassName )
 {
     return NULL;
 }
 
-void CFrameWnd::InitWindow()
+void Cbtvmgui::InitWindow()
 {
     CenterWindow();
 }
