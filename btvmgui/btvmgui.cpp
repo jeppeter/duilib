@@ -53,6 +53,8 @@ void Cbtvmgui::InitWindow()
         phyper->SetText(_T("{u}{a}http://www.sina.com.cn{/a}{/u}"));
     }
 
+    this->TraySetToolTip(_T("Bingte VMTool GUI"));
+
     CenterWindow();
 }
 

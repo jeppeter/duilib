@@ -10,6 +10,7 @@ public:
     virtual LRESULT OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
     virtual LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
     void TraySetIcon(HICON hIcon);
+    void TraySetToolTip(LPCTSTR tooltip);
     virtual LRESULT TranslateAccelerator(MSG *pMsg);
     BOOL TrayHide();
     BOOL TrayShow();

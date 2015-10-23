@@ -3,6 +3,7 @@
 using namespace DuiLib;
 
 
+#pragma warning( disable : 4996) 
 // ÒÔXMLÉú³É½çÃæµÄ´°¿Ú»ùÀà
 class CXMLWnd : public WindowImplBase
 {

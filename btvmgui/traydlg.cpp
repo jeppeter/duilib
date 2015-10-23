@@ -51,6 +51,13 @@ void Ctraydlg::TraySetIcon(HICON hIcon)
     return;
 }
 
+void Ctraydlg::TraySetToolTip(LPCTSTR tooltip)
+{
+    _tcsncpy(this->m_NotifyIconData.szTip,tooltip,sizeof(this->m_NotifyIconData.szTip));
+    this->m_NotifyIconData.uFlags |= NIF_TIP;
+    return ;
+}
+
 BOOL Ctraydlg::TrayHide()
 {
     BOOL bret=TRUE;
