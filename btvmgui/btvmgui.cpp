@@ -38,6 +38,7 @@ void Cbtvmgui::InitWindow()
 	if (hicon != NULL){
 		::PostMessage(this->GetHWND(), (UINT)WM_SETICON, ICON_BIG  , (LPARAM)hicon);
 		::PostMessage(this->GetHWND(), (UINT)WM_SETICON, ICON_SMALL, (LPARAM)hicon);
+		this->SetTrayIcon(hicon);
 	}else{
 		::MessageBox(this->GetHWND(),_T("Not Set Icon"),_T("Notice"),MB_OK);
 	}

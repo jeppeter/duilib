@@ -69,3 +69,9 @@ BOOL Ctraydlg::TrayShow()
 	}
 	return bret;
 }
+
+void Ctraydlg::TraySetIcon(HICON hIcon)
+{
+	this->m_NotifyIconData.hIcon = hIcon;
+	return ;
+}
