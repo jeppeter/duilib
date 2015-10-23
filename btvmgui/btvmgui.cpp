@@ -38,7 +38,7 @@ void Cbtvmgui::InitWindow()
 	if (hicon != NULL){
 		::PostMessage(this->GetHWND(), (UINT)WM_SETICON, ICON_BIG  , (LPARAM)hicon);
 		::PostMessage(this->GetHWND(), (UINT)WM_SETICON, ICON_SMALL, (LPARAM)hicon);
-		this->SetTrayIcon(hicon);
+		this->TraySetIcon((HICON)hicon);
 	}else{
 		::MessageBox(this->GetHWND(),_T("Not Set Icon"),_T("Notice"),MB_OK);
 	}
@@ -50,4 +50,12 @@ void Cbtvmgui::InitWindow()
 	}
 
     CenterWindow();
+}
+
+
+LRESULT Cbtvmgui::OnDestroy(UINT uMsg, WPARAM wParam, LPARAM  lParam, BOOL& bHandled)
+{
+	LRESULT res;
+	res = Ctraydlg::OnDestroy(uMsg, wParam, lParam,bHandled);
+	return res;
 }

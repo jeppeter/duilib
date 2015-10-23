@@ -8,13 +8,14 @@ public:
     explicit Ctraydlg(LPCTSTR pszXMLPath);
     virtual LRESULT OnDestroy(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
     virtual LRESULT OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+    virtual LRESULT MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, bool& bHandled);
     void TraySetIcon(HICON hIcon);
     BOOL TrayHide();
     BOOL TrayShow();
 private:
-	BOOL TrayIsVisible();
-	void __show_tray();
-	void __hide_tray();
-	int m_trayshow;
-	NOTIFYICONDATA m_NotifyIconData;
+    BOOL TrayIsVisible();
+    void __show_tray();
+    void __hide_tray();
+    int m_trayshow;
+    NOTIFYICONDATA m_NotifyIconData;
 };
