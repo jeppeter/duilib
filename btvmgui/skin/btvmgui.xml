@@ -18,7 +18,7 @@
                     <Button name="hyperlink" text="{u}{a href=http://www.sina.com.cn}Hyperlinks{/a}{/u}" rhaa="http://www.sina.com.cn" showhtml="true" float="true" pos="110,19,270,49" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" />
                 </HorizontalLayout>
                 <HorizontalLayout name="HorizontalLayoutUI4" pos="0,0,0,63" height="63">
-                    <Label name="LabelUI4" text="3" float="true" pos="100,16,220,46" bkcolor="#FFA6CAF0" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" />
+                    <Label name="LabelTimeout" text="3" float="true" pos="100,16,220,46" bkcolor="#FFA6CAF0" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" />
                     <Button name="Buttonup" float="true" pos="220,16,245,31" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="SysBtn\up.png" />
                     <Button name="Buttondown" float="true" pos="220,31,245,46" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="SysBtn\down.png" />
                 </HorizontalLayout>

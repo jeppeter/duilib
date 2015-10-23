@@ -2,7 +2,7 @@
 
 #include "duilib.h"
 
-class Ctraydlg: public CXMLWnd,public ITranslateAccelerator
+class Ctraydlg: public CXMLWnd
 {
 public:
     explicit Ctraydlg(LPCTSTR pszXMLPath);
@@ -11,7 +11,6 @@ public:
     virtual LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
     void TraySetIcon(HICON hIcon);
     void TraySetToolTip(LPCTSTR tooltip);
-    virtual LRESULT TranslateAccelerator(MSG *pMsg);
     BOOL TrayHide();
     BOOL TrayShow();
     BOOL TrayIsVisible();

@@ -40,7 +40,6 @@ LRESULT Ctraydlg::OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandl
     this->m_NotifyIconData.hWnd = this->GetHWND();
     this->m_NotifyIconData.uID = 1;
     DEBUG_INFO("set hwnd 0x%x\n",this->m_NotifyIconData.hWnd);
-    this->m_PaintManager.AddTranslateAccelerator(this);
     return res;
 }
 
@@ -83,12 +82,6 @@ BOOL Ctraydlg::TrayShow()
     return bret;
 }
 
-LRESULT Ctraydlg::TranslateAccelerator(MSG * pMsg)
-{
-    DEBUG_INFO("message 0x%x wparam 0x%x lparam 0x%x\n",pMsg->message,
-               pMsg->wParam,pMsg->lParam);
-    return S_FALSE;
-}
 
 LRESULT Ctraydlg::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {

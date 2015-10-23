@@ -5,12 +5,20 @@
 Cbtvmgui::Cbtvmgui( LPCTSTR pszXMLPath )
     : Ctraydlg(pszXMLPath)
 {
+    this->m_timeout = 3;
 }
 
+
+Cbtvmgui::~Cbtvmgui()
+{
+    DEBUG_INFO("\n");
+}
 
 
 void Cbtvmgui::Notify( TNotifyUI& msg )
 {
+    TCHAR numstr[32];
+    int timeout;
     if (msg.sType == _T("click")) {
         if (msg.pSender->GetName() == _T("ButtonExit")) {
             Close();
@@ -19,6 +27,32 @@ void Cbtvmgui::Notify( TNotifyUI& msg )
             this->TrayShow();
             this->ShowWindow(false,true);
             return ;
+        } else if (msg.pSender->GetName() == _T("Buttonup")) {
+            CLabelUI* pLabel=static_cast<CLabelUI*>(m_PaintManager.FindControl(_T("LabelTimeout")));
+            if (pLabel) {
+                timeout = this->m_timeout;
+                timeout ++;
+                if (timeout <= 30) {
+                    this->m_timeout = timeout;
+                }
+                _sntprintf(numstr,sizeof(numstr),_T("%d"),this->m_timeout);
+                pLabel->SetText(numstr);
+            }
+            return ;
+        } else if (msg.pSender->GetName() == _T("Buttondown")) {
+            CLabelUI* pLabel=static_cast<CLabelUI*>(m_PaintManager.FindControl(_T("LabelTimeout")));
+            if (pLabel) {
+                timeout = this->m_timeout;
+                timeout --;
+                if (timeout >= 1) {
+                    this->m_timeout = timeout;
+                }
+                _sntprintf(numstr,sizeof(numstr),_T("%d"),this->m_timeout);
+                pLabel->SetText(numstr);
+            }
+            return ;
+        } else if (msg.pSender->GetName() == _T("hyperlink")) {
+            ::ShellExecute(NULL, _T("open"),this->m_hyperlink, NULL, NULL, SW_SHOWNORMAL);
         }
     }
     __super::Notify(msg);
@@ -37,6 +71,12 @@ void Cbtvmgui::InitWindow()
     HINSTANCE hinstance=NULL;
     hinstance = CPaintManagerUI::GetInstance();
     HANDLE hicon = NULL;
+    TCHAR numstr[32];
+    CLabelUI* pLabel=static_cast<CLabelUI*>(m_PaintManager.FindControl(_T("LabelTimeout")));
+    if (pLabel) {
+        _sntprintf(numstr,sizeof(numstr),_T("%d"),this->m_timeout);
+        pLabel->SetText(numstr);
+    }
     hicon = ::LoadImage(hinstance,_T("logo.ico"), IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
 
     if (hicon != NULL) {
@@ -51,6 +91,7 @@ void Cbtvmgui::InitWindow()
     phyper = static_cast<CButtonUI*>(m_PaintManager.FindControl(_T("hyperlink")));
     if (phyper) {
         phyper->SetText(_T("{u}{a}http://www.sina.com.cn{/a}{/u}"));
+        _tcsncpy(this->m_hyperlink,_T("http://www.sina.com.cn"),sizeof(this->m_hyperlink)/sizeof(this->m_hyperlink[0]));
     }
 
     this->TraySetToolTip(_T("Bingte VMTool GUI"));
@@ -64,6 +105,7 @@ LRESULT Cbtvmgui::OnDestroy(UINT uMsg, WPARAM wParam, LPARAM  lParam, BOOL& bHan
     LRESULT res;
     DEBUG_INFO("\n");
     res = Ctraydlg::OnDestroy(uMsg, wParam, lParam,bHandled);
+    DEBUG_INFO("\n");
     return res;
 }
 
