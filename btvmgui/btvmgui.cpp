@@ -2,9 +2,28 @@
 #include "btvmgui.h"
 
 Cbtvmgui::Cbtvmgui( LPCTSTR pszXMLPath )
-: CXMLWnd(pszXMLPath)
+: Ctraydlg(pszXMLPath)
 {
+}
 
+void Cbtvmgui::__show_tray()
+{
+	if (this->m_trayshow){
+		return;
+	}
+
+	this->m_trayshow = 1;
+	return ;
+}
+
+void Cbtvmgui::__hide_tray()
+{
+	if (this->m_trayshow == 0){
+		return;
+	}
+
+	this->m_trayshow = 0;
+	return ;
 }
 
 
@@ -14,6 +33,8 @@ void Cbtvmgui::Notify( TNotifyUI& msg )
 		if (msg.pSender->GetName() == _T("ButtonExit")){
 			Close();
 			return ;
+		} else if (msg.pSender->GetName() == _T("closebtn")){
+
 		}
 	}
     __super::Notify(msg);
