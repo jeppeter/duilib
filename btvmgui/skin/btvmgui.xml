@@ -12,15 +12,15 @@
                 <Button name="closebtn" tooltip="关闭" float="true" pos="44,5,72,24" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage=" file=&apos;SysBtn\CloseNormal.bmp&apos; " />
             </VerticalLayout>
         </HorizontalLayout>
-        <HorizontalLayout name="HorizontalLayoutUI3" pos="0,32,800,155" width="800" height="123" bkcolor="#FFFFFBF0">
+        <HorizontalLayout name="HorizontalLayoutUI3" pos="0,32,800,155" width="800" height="123" bkcolor="#FFFFFBE0">
             <VerticalLayout name="VerticalLayoutUI4" pos="0,0,400,0" width="400">
                 <HorizontalLayout name="HorizontalLayoutUI2" pos="0,32,400,92" width="400" height="60">
-                    <Button name="ButtonUI1" text="{u}{a}Hyperlinks{/a}{/u}" showhtml="true" float="true" pos="110,19,270,49" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" />
+                    <Button name="hyperlink" text="{u}{a href=http://www.sina.com.cn}Hyperlinks{/a}{/u}" rhaa="http://www.sina.com.cn" showhtml="true" float="true" pos="110,19,270,49" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" />
                 </HorizontalLayout>
                 <HorizontalLayout name="HorizontalLayoutUI4" pos="0,0,0,63" height="63">
                     <Label name="LabelUI4" text="3" float="true" pos="100,16,220,46" bkcolor="#FFA6CAF0" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" />
-                    <Button name="Buttonup" float="true" pos="220,16,245,31" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="up.png" />
-                    <Button name="Buttondown" float="true" pos="220,31,245,46" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="down.png" />
+                    <Button name="Buttonup" float="true" pos="220,16,245,31" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="SysBtn\up.png" />
+                    <Button name="Buttondown" float="true" pos="220,31,245,46" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="SysBtn\down.png" />
                 </HorizontalLayout>
             </VerticalLayout>
             <VerticalLayout name="VerticalLayoutUI5" pos="0,0,400,0" width="400">
