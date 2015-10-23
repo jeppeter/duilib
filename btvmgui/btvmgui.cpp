@@ -6,25 +6,6 @@ Cbtvmgui::Cbtvmgui( LPCTSTR pszXMLPath )
 {
 }
 
-void Cbtvmgui::__show_tray()
-{
-	if (this->m_trayshow){
-		return;
-	}
-
-	this->m_trayshow = 1;
-	return ;
-}
-
-void Cbtvmgui::__hide_tray()
-{
-	if (this->m_trayshow == 0){
-		return;
-	}
-
-	this->m_trayshow = 0;
-	return ;
-}
 
 
 void Cbtvmgui::Notify( TNotifyUI& msg )
@@ -55,7 +36,8 @@ void Cbtvmgui::InitWindow()
 	hicon = ::LoadImage(hinstance,_T("logo.ico"), IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
 
 	if (hicon != NULL){
-		::PostMessage(this->GetHWND(), (UINT)WM_SETICON, ICON_BIG, (LPARAM)hicon);
+		::PostMessage(this->GetHWND(), (UINT)WM_SETICON, ICON_BIG  , (LPARAM)hicon);
+		::PostMessage(this->GetHWND(), (UINT)WM_SETICON, ICON_SMALL, (LPARAM)hicon);
 	}else{
 		::MessageBox(this->GetHWND(),_T("Not Set Icon"),_T("Notice"),MB_OK);
 	}
