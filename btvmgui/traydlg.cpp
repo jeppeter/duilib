@@ -85,8 +85,15 @@ LRESULT Ctraydlg::TranslateAccelerator(MSG * pMsg)
 
 LRESULT Ctraydlg::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-    if (uMsg == WM_TRAY_ICON_NOTIFY_MESSAGE) {
-        DEBUG_INFO("tray icon notify message on wparam %d lparam %d\n",wParam,lParam);
+    if (uMsg == WM_TRAY_ICON_NOTIFY_MESSAGE && wParam == this->m_NotifyIconData.uID ) {
+        if (lParam == WM_LBUTTONDBLCLK) {
+            this->ShowWindow(true,true);
+            this->TrayHide();
+            return 1;
+        } else if (lParam == WM_RBUTTONDOWN) {
+            /*now to show the menu*/
+            return 1;
+        }
     }
     return CXMLWnd::HandleMessage(uMsg,wParam,lParam);
 }
