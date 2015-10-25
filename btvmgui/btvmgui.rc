@@ -1,0 +1,11 @@
+
+#ifndef __BTVMGUI_RES__
+#define  __BTVMGUI_RES__
+#include "resource.h"
+
+IDR_ZIP_SKIN ZIPRES "res\btvmguires.zip"
+IDR_MAINFRAME ICON "res\logo.ico"
+
+
+#endif /*__BTVMGUI_RES__*/
+
