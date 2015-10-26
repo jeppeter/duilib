@@ -464,6 +464,7 @@ CMenuElementUI::CMenuElementUI():
 {
     m_cxyFixed.cy = 25;
     m_bMouseChildEnabled = true;
+    m_command = 0;
 
     SetMouseChildEnabled(false);
 }
@@ -597,7 +598,7 @@ void CMenuElementUI::DoEvent(TEventUI& event)
     if( event.Type == UIEVENT_BUTTONDOWN ) {
         if( IsEnabled() ) {
             CListContainerElementUI::DoEvent(event);
-
+            DEBUG_INFO("buttondown command %d hwnd 0x%x\n",this->m_command,m_pManager->GetPaintWindow());
             if( m_pWindow ) return;
 
             bool hasSubMenu = false;
@@ -669,6 +670,16 @@ void CMenuElementUI::CreateMenuWnd()
     s_context_menu_observer.RBroadcast(param);
 
     m_pWindow->Init(static_cast<CMenuElementUI*>(this), _T(""), CDuiPoint());
+}
+
+void CMenuElementUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+{
+    if (_tcscmp(pstrName, _T("command")) == 0) {
+        LPTSTR pstr=NULL;
+        this->m_command = _tcstol(pstrValue, &pstr, 10);
+        return ;
+    }
+    return __super::SetAttribute(pstrName,pstrValue);
 }
 
 

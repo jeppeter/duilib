@@ -116,9 +116,11 @@ public:
 	CMenuWnd* GetMenuWnd();
 
 	void CreateMenuWnd();
+	void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
 
 protected:
 	CMenuWnd* m_pWindow;
+	int m_command;
 };
 
 } // namespace DuiLib

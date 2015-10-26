@@ -13,7 +13,7 @@
         <MenuElement text="     菜单测ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd试1        " />
         <MenuElement text="     菜单测试2        " />
       </MenuElement>
-      <MenuElement text="     菜单测试3        " />
+      <MenuElement text="     菜单测试3        " command="120" />
       <MenuElement text="     菜单测试4        ">
         <HorizontalLayout>
           <Label />
@@ -68,7 +68,7 @@
         <MenuElement text="     菜单测试b       " />
       </MenuElement>
     </MenuElement>
-    <MenuElement text="     菜单测试9        " />
+    <MenuElement text="     菜单测试9        " command="121" />
     <MenuElement text="     菜单测试10        ">
       <HorizontalLayout>
         <Label />
