@@ -6,8 +6,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 {
     ::CoInitialize(NULL);
     CPaintManagerUI::SetInstance(hInstance);
-    CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("skin"));
-    CPaintManagerUI::SetResourceZip(_T("btvmguires.zip"));
 
     Cbtvmgui *pFrame = new Cbtvmgui(_T("btvmgui.xml"));
     //pFrame->Create(NULL, _T("BTVMGUI"), UI_WNDSTYLE_FRAME, WS_EX_WINDOWEDGE);

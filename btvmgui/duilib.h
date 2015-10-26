@@ -1,9 +1,13 @@
 #pragma once
 #include <UIlib.h>
+#include "resource.h"
+
 using namespace DuiLib;
 
 
 #pragma warning( disable : 4996) 
+
+#if  0
 // ÒÔXMLÉú³É½çÃæµÄ´°¿Ú»ùÀà
 class CXMLWnd : public WindowImplBase
 {
@@ -30,6 +34,45 @@ public:
 protected:
     CDuiString m_strXMLPath;
 };
+
+#else
+
+class CXMLWnd : public WindowImplBase
+{
+public:
+    explicit CXMLWnd(LPCTSTR pszXMLPath) 
+        : m_strXMLPath(pszXMLPath){}
+
+public:
+    virtual LPCTSTR GetWindowClassName() const
+    {
+        return _T("XMLWnd");
+    }
+
+    virtual CDuiString GetSkinFile()
+    {
+        return m_strXMLPath;
+    }
+
+    virtual CDuiString GetSkinFolder()
+    {
+        return _T("");
+    }
+
+    virtual LPCTSTR GetResourceID() const  
+    {  
+        return MAKEINTRESOURCE(IDR_ZIP_SKIN);  
+    };  
+    virtual UILIB_RESOURCETYPE GetResourceType() const  
+    {  
+        return UILIB_ZIPRESOURCE;   
+    };  
+	
+protected:
+    CDuiString m_strXMLPath;
+};
+
+#endif
 
 
 // ½«HWNDÏÔÊ¾µ½CControlUIÉÏÃæ

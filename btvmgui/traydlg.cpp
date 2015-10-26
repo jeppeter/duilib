@@ -2,7 +2,6 @@
 #include "traydlg.h"
 #include "output_debug.h"
 
-#define WM_TRAY_ICON_NOTIFY_MESSAGE (WM_USER+0x1)
 
 Ctraydlg::Ctraydlg( LPCTSTR pszXMLPath )
     : CXMLWnd(pszXMLPath)
@@ -11,9 +10,9 @@ Ctraydlg::Ctraydlg( LPCTSTR pszXMLPath )
     this->m_NotifyIconData.cbSize = sizeof(NOTIFYICONDATA);
     this->m_NotifyIconData.hWnd = 0;
     this->m_NotifyIconData.uID = 1;
-    this->m_NotifyIconData.uCallbackMessage = WM_TRAY_ICON_NOTIFY_MESSAGE;
+    this->m_NotifyIconData.uCallbackMessage = 0;
     this->m_NotifyIconData.hIcon = NULL;
-    this->m_NotifyIconData.uFlags = NIF_MESSAGE;
+    this->m_NotifyIconData.uFlags = 0;
 }
 
 BOOL Ctraydlg::TrayIsVisible()
@@ -57,6 +56,19 @@ void Ctraydlg::TraySetToolTip(LPCTSTR tooltip)
     return ;
 }
 
+void Ctraydlg::TraySetMessage(UINT msg)
+{
+	this->m_NotifyIconData.uCallbackMessage = msg;
+	this->m_NotifyIconData.uFlags |= NIF_MESSAGE;
+	return ;
+}
+
+void Ctraydlg::TraySetId(UINT id)
+{
+	this->m_NotifyIconData.uID = id;
+	return ;
+}
+
 BOOL Ctraydlg::TrayHide()
 {
     BOOL bret=TRUE;
@@ -83,17 +95,3 @@ BOOL Ctraydlg::TrayShow()
 }
 
 
-LRESULT Ctraydlg::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
-    if (uMsg == WM_TRAY_ICON_NOTIFY_MESSAGE && wParam == this->m_NotifyIconData.uID ) {
-        if (lParam == WM_LBUTTONDBLCLK) {
-            this->ShowWindow(true,true);
-            this->TrayHide();
-            return 1;
-        } else if (lParam == WM_RBUTTONDOWN) {
-            /*now to show the menu*/
-            return 1;
-        }
-    }
-    return CXMLWnd::HandleMessage(uMsg,wParam,lParam);
-}

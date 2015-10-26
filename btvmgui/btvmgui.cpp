@@ -4,6 +4,9 @@
 #include <gdiplus.h>
 #pragma comment(lib,"GdiPlus.lib")
 
+#define WM_TRAY_ICON_NOTIFY_MESSAGE (WM_USER+0x1)
+
+
 Cbtvmgui::Cbtvmgui(LPCTSTR pszXMLPath)
     : Ctraydlg(pszXMLPath)
 {
@@ -117,6 +120,8 @@ failed:
     }
 
     this->TraySetToolTip(_T("Bingte VMTool GUI"));
+    this->TraySetMessage(WM_TRAY_ICON_NOTIFY_MESSAGE);
+    this->TraySetId(1);
 
     CenterWindow();
 }
@@ -130,4 +135,20 @@ LRESULT Cbtvmgui::OnDestroy(UINT uMsg, WPARAM wParam, LPARAM  lParam, BOOL& bHan
     DEBUG_INFO("\n");
     return res;
 }
+
+LRESULT Cbtvmgui::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    if (uMsg == WM_TRAY_ICON_NOTIFY_MESSAGE ) {
+        if (lParam == WM_LBUTTONDBLCLK) {
+            this->ShowWindow(true,true);
+            this->TrayHide();
+            return 1;
+        } else if (lParam == WM_RBUTTONDOWN) {
+            /*now to show the menu*/
+            return 1;
+        }
+    }
+    return __super::HandleMessage(uMsg,wParam,lParam);
+}
+
 
