@@ -337,10 +337,10 @@ LRESULT CMenuWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
                 rc.right = rc.left + cxFixed;
             }
 
-            DEBUG_INFO("window rect (left:top | right:bottom) (%d:%d | %d:%d)\n",
-                       rcWindow.left,rcWindow.top,rcWindow.right,rcWindow.bottom);
-            DEBUG_INFO("rc.left:rc.top rc.right:rc.bottom %d:%d %d:%d\n",
-                       rc.left,rc.top,rc.right,rc.bottom);
+            //DEBUG_INFO("window rect (left:top | right:bottom) (%d:%d | %d:%d)\n",
+            //           rcWindow.left,rcWindow.top,rcWindow.right,rcWindow.bottom);
+            //DEBUG_INFO("rc.left:rc.top rc.right:rc.bottom %d:%d %d:%d\n",
+            //           rc.left,rc.top,rc.right,rc.bottom);
 
             MoveWindow(m_hWnd, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, FALSE);
         } else {
@@ -399,10 +399,10 @@ LRESULT CMenuWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
                 rc.left = rc.right - nWidth;
             }
 
-            DEBUG_INFO("rc.left %d rc.top %d rc.right %d rc.bottom %d\n",
-                       rc.left,rc.top,rc.left + rc.GetWidth(),rc.top + rc.GetHeight());
-            DEBUG_INFO("rcwork.left %d rcwork.top %d rcwork.right %d rcwork.bottom %d\n",
-                       rcWork.left,rcWork.top,rcWork.left + rcWork.GetWidth(),rcWork.top + rcWork.GetHeight());
+            //DEBUG_INFO("rc.left %d rc.top %d rc.right %d rc.bottom %d\n",
+            //           rc.left,rc.top,rc.left + rc.GetWidth(),rc.top + rc.GetHeight());
+            //DEBUG_INFO("rcwork.left %d rcwork.top %d rcwork.right %d rcwork.bottom %d\n",
+            //           rcWork.left,rcWork.top,rcWork.left + rcWork.GetWidth(),rcWork.top + rcWork.GetHeight());
             SetForegroundWindow(m_hWnd);
             MoveWindow(m_hWnd, rc.left, rc.top, rc.GetWidth(), rc.GetHeight(), FALSE);
             SetWindowPos(m_hWnd, HWND_TOPMOST, rc.left, rc.top, rc.GetWidth(), rc.GetHeight(), SWP_SHOWWINDOW);
