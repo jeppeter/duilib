@@ -2,9 +2,15 @@
 #include "btvmgui.h"
 #include "output_debug.h"
 #include "resource.h"
-#include "UIMenu.h"
 
 #define WM_TRAY_ICON_NOTIFY_MESSAGE (WM_USER+0x1)
+
+/************************************************
+*   these two menu item is in xml file of command attribute
+************************************************/
+#define WM_MENU_OPEN_DIALOG                  120
+#define WM_MENU_EXIT                                  121
+
 
 
 Cbtvmgui::Cbtvmgui(LPCTSTR pszXMLPath)
@@ -112,6 +118,12 @@ LRESULT Cbtvmgui::OnDestroy(UINT uMsg, WPARAM wParam, LPARAM  lParam, BOOL& bHan
     return res;
 }
 
+void Cbtvmgui::OnFinalMessage(HWND hWnd)
+{
+    /*we delete out here*/
+    return ;
+}
+
 LRESULT Cbtvmgui::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     if (uMsg == WM_TRAY_ICON_NOTIFY_MESSAGE ) {
@@ -130,6 +142,16 @@ LRESULT Cbtvmgui::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
             pMenu->Init(NULL, _T("xml"), point);
             return 1;
         }
+    } else if (uMsg == MENU_ITEM_MESSAGE) {
+        DEBUG_INFO("got menu item message wparam 0x%x lparam 0x%x\n",wParam,lParam);
+        if (wParam == WM_MENU_OPEN_DIALOG) {
+            this->ShowWindow(true,true);
+            this->TrayHide();
+        } else if (wParam == WM_MENU_EXIT) {
+            Close();
+        }
+
+        return 1;
     }
     return __super::HandleMessage(uMsg,wParam,lParam);
 }

@@ -3,7 +3,6 @@
 #include "UIMenu.h"
 #include "output_debug.h"
 
-#define MENU_ITEM_MESSAGE  (WM_USER+0x20)
 
 namespace DuiLib
 {
