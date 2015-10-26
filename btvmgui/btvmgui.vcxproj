@@ -60,6 +60,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='UnicodeRelease|x64'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="UIMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="btvmgui.rc" />
