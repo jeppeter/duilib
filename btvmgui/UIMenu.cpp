@@ -3,6 +3,8 @@
 #include "UIMenu.h"
 #include "output_debug.h"
 
+#define MENU_ITEM_MESSAGE  (WM_USER+0x20)
+
 namespace DuiLib
 {
 
@@ -22,6 +24,12 @@ CMenuUI::CMenuUI()
 
 CMenuUI::~CMenuUI()
 {}
+
+void CMenuUI::SetTopWnd(HWND hwnd)
+{
+	this->m_hTopWnd = hwnd;
+	return ;
+}
 
 LPCTSTR CMenuUI::GetClass() const
 {
@@ -118,15 +126,27 @@ void CMenuUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
 //
 class CMenuBuilderCallback: public IDialogBuilderCallback
 {
+
     CControlUI* CreateControl(LPCTSTR pstrClass)
     {
         if (_tcsicmp(pstrClass, kMenuUIInterfaceName) == 0) {
-            return new CMenuUI();
+            CMenuUI* pMenu=new CMenuUI();
+            pMenu->SetTopWnd(this->m_hTopWnd);
+            return pMenu;
         } else if (_tcsicmp(pstrClass, kMenuElementUIInterfaceName) == 0) {
-            return new CMenuElementUI();
+            CMenuElementUI* pElem=new CMenuElementUI();
+            pElem->SetTopWnd(this->m_hTopWnd);
+            return pElem;
         }
         return NULL;
     }
+public:
+    void SetTopWnd(HWND hwnd)
+    {
+        this->m_hTopWnd = hwnd;
+    }
+private:
+    HWND m_hTopWnd;
 };
 
 CMenuWnd::CMenuWnd(LPCTSTR pszXMLPath,HWND hParent ): CXMLWnd(pszXMLPath),
@@ -135,6 +155,12 @@ CMenuWnd::CMenuWnd(LPCTSTR pszXMLPath,HWND hParent ): CXMLWnd(pszXMLPath),
     m_pLayout(),
     m_xml(pszXMLPath)
 {}
+
+void CMenuWnd::SetTopWnd(HWND hwnd)
+{
+    this->m_hTopWnd = hwnd;
+    return ;
+}
 
 BOOL CMenuWnd::Receive(ContextMenuParam param)
 {
@@ -223,6 +249,7 @@ LRESULT CMenuWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
             // reassigned by this operation - which is why it is important to reassign
             // the items back to the righfull owner/manager when the window closes.
             m_pLayout = new CMenuUI();
+            m_pLayout->SetTopWnd(this->m_hTopWnd);
             m_pLayout->SetManager(&m_pm, NULL, true);
             LPCTSTR pDefaultAttributes = m_pOwner->GetManager()->GetDefaultAttributeList(kMenuUIInterfaceName);
             if( pDefaultAttributes ) {
@@ -348,7 +375,7 @@ LRESULT CMenuWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             CDialogBuilder builder;
             CMenuBuilderCallback menuCallback;
-
+            menuCallback.SetTopWnd(this->m_hTopWnd);
             CControlUI* pRoot = builder.Create(m_xml, m_sType.GetData(), &menuCallback, &m_pm);
             m_pm.AttachDialog(pRoot);
 
@@ -445,6 +472,11 @@ LRESULT CMenuWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
         if( wParam == VK_ESCAPE) {
             Close();
         }
+    } else if (uMsg == MENU_ITEM_MESSAGE) {
+        DEBUG_INFO("0x%x window got LBUTTONDOWN hParent 0x%x\n",this->GetHWND(),this->m_hParent);
+        if (this->m_hParent) {
+            ::PostMessage(this->m_hParent,MENU_ITEM_MESSAGE,wParam,lParam);
+        }
     }
 
     LRESULT lRes = 0;
@@ -467,6 +499,12 @@ CMenuElementUI::CMenuElementUI():
     m_command = 0;
 
     SetMouseChildEnabled(false);
+}
+
+void CMenuElementUI::SetTopWnd(HWND hwnd)
+{
+	this->m_hTopWnd = hwnd;
+	return;
 }
 
 CMenuElementUI::~CMenuElementUI()
@@ -598,7 +636,8 @@ void CMenuElementUI::DoEvent(TEventUI& event)
     if( event.Type == UIEVENT_BUTTONDOWN ) {
         if( IsEnabled() ) {
             CListContainerElementUI::DoEvent(event);
-            DEBUG_INFO("buttondown command %d hwnd 0x%x\n",this->m_command,m_pManager->GetPaintWindow());
+            DEBUG_INFO("buttondown command %d hwnd 0x%x\n",this->m_command,this->m_hTopWnd);
+            ::PostMessage(this->m_hTopWnd,MENU_ITEM_MESSAGE,this->m_command,0);
             if( m_pWindow ) return;
 
             bool hasSubMenu = false;
@@ -663,6 +702,7 @@ void CMenuElementUI::CreateMenuWnd()
 
     m_pWindow = new CMenuWnd(_T(""),m_pManager->GetPaintWindow());
     ASSERT(m_pWindow);
+    m_pWindow->SetTopWnd(this->m_hTopWnd);
 
     ContextMenuParam param;
     param.hWnd = m_pManager->GetPaintWindow();

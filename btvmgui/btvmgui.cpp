@@ -125,6 +125,8 @@ LRESULT Cbtvmgui::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
             POINT pt;
             GetCursorPos(&pt);
             CDuiPoint point(pt.x,pt.y);
+            DEBUG_INFO("current 0x%x\n",this->GetHWND());
+            pMenu->SetTopWnd(this->GetHWND());
             pMenu->Init(NULL, _T("xml"), point);
             return 1;
         }
