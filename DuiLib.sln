@@ -33,6 +33,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "btvmgui", "btvmgui\btvmgui.
 		{C43DEFBE-156D-489D-83BB-D7C4A9D15D0D} = {C43DEFBE-156D-489D-83BB-D7C4A9D15D0D}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tstmenu", "tstmenu\tstmenu.vcxproj", "{30022F73-05EC-40DA-8F0B-332C8C774458}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -233,6 +235,20 @@ Global
 		{489800DD-4F6F-4D85-8CE1-7074EB850121}.UnicodeRelease|Win32.Build.0 = Release|Win32
 		{489800DD-4F6F-4D85-8CE1-7074EB850121}.UnicodeRelease|x64.ActiveCfg = UnicodeRelease|x64
 		{489800DD-4F6F-4D85-8CE1-7074EB850121}.UnicodeRelease|x64.Build.0 = UnicodeRelease|x64
+		{30022F73-05EC-40DA-8F0B-332C8C774458}.Debug|Win32.ActiveCfg = Debug|Win32
+		{30022F73-05EC-40DA-8F0B-332C8C774458}.Debug|Win32.Build.0 = Debug|Win32
+		{30022F73-05EC-40DA-8F0B-332C8C774458}.Debug|x64.ActiveCfg = Debug|Win32
+		{30022F73-05EC-40DA-8F0B-332C8C774458}.Release|Win32.ActiveCfg = Release|Win32
+		{30022F73-05EC-40DA-8F0B-332C8C774458}.Release|Win32.Build.0 = Release|Win32
+		{30022F73-05EC-40DA-8F0B-332C8C774458}.Release|x64.ActiveCfg = Release|Win32
+		{30022F73-05EC-40DA-8F0B-332C8C774458}.UnicdoeDebug|Win32.ActiveCfg = Debug|Win32
+		{30022F73-05EC-40DA-8F0B-332C8C774458}.UnicdoeDebug|Win32.Build.0 = Debug|Win32
+		{30022F73-05EC-40DA-8F0B-332C8C774458}.UnicdoeDebug|x64.ActiveCfg = Release|Win32
+		{30022F73-05EC-40DA-8F0B-332C8C774458}.UnicdoeDebug|x64.Build.0 = Release|Win32
+		{30022F73-05EC-40DA-8F0B-332C8C774458}.UnicodeRelease|Win32.ActiveCfg = Release|Win32
+		{30022F73-05EC-40DA-8F0B-332C8C774458}.UnicodeRelease|Win32.Build.0 = Release|Win32
+		{30022F73-05EC-40DA-8F0B-332C8C774458}.UnicodeRelease|x64.ActiveCfg = Release|Win32
+		{30022F73-05EC-40DA-8F0B-332C8C774458}.UnicodeRelease|x64.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
