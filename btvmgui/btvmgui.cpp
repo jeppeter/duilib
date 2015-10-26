@@ -1,8 +1,8 @@
 
 #include "btvmgui.h"
 #include "output_debug.h"
-#include <gdiplus.h>
-#pragma comment(lib,"GdiPlus.lib")
+#include "resource.h"
+#include "UIMenu.h"
 
 #define WM_TRAY_ICON_NOTIFY_MESSAGE (WM_USER+0x1)
 
@@ -73,44 +73,16 @@ CControlUI* Cbtvmgui::CreateControl(LPCTSTR pstrClassName)
 void Cbtvmgui::InitWindow()
 {
     /*now to set icon*/
-    HINSTANCE hinstance=NULL;
-    hinstance = CPaintManagerUI::GetInstance();
-    HICON hicon = NULL;
     TCHAR numstr[32];
-    TImageInfo* bitmap=NULL;
+    HICON hicon=NULL;
     CLabelUI* pLabel=static_cast<CLabelUI*>(m_PaintManager.FindControl(_T("LabelTimeout")));
     if(pLabel) {
         _sntprintf(numstr,sizeof(numstr),_T("%d"),this->m_timeout);
         pLabel->SetText(numstr);
     }
 
-    bitmap = CRenderEngine::LoadImage(_T("icon.png"),NULL,0);
-    if(bitmap) {
-        Gdiplus::Bitmap* pTmpBitmap=Gdiplus::Bitmap::FromHBITMAP(bitmap->hBitmap,NULL);
-        if(pTmpBitmap == NULL) {
-            goto failed;
-        }
-        hicon = NULL;
-        pTmpBitmap->GetHICON(&hicon);
+    this->SetIcon(IDR_MAINFRAME);
 
-
-        if(hicon != NULL) {
-            ::PostMessage(this->GetHWND(), (UINT)WM_SETICON, ICON_BIG  , (LPARAM)hicon);
-            ::PostMessage(this->GetHWND(), (UINT)WM_SETICON, ICON_SMALL, (LPARAM)hicon);
-            this->TraySetIcon((HICON)hicon);
-        } else {
-            ::MessageBox(this->GetHWND(),_T("Not Set Icon"),_T("Notice"),MB_OK);
-        }
-failed:
-        if(pTmpBitmap) {
-            delete pTmpBitmap;
-        }
-        pTmpBitmap = NULL;
-        CRenderEngine::FreeImage(bitmap,true);
-        bitmap = NULL;
-    } else {
-        ::MessageBox(this->GetHWND(),_T("Not Get Bitmap"),_T("Notice"),MB_OK);
-    }
 
     CButtonUI* phyper= NULL;
     phyper = static_cast<CButtonUI*>(m_PaintManager.FindControl(_T("hyperlink")));
@@ -119,6 +91,10 @@ failed:
         _tcsncpy(this->m_hyperlink,_T("http://www.sina.com.cn"),sizeof(this->m_hyperlink)/sizeof(this->m_hyperlink[0]));
     }
 
+    hicon = (HICON)::LoadImage(CPaintManagerUI::GetInstance(), MAKEINTRESOURCE(IDR_MAINFRAME), IMAGE_ICON, ::GetSystemMetrics(SM_CXICON), ::GetSystemMetrics(SM_CYICON), LR_DEFAULTCOLOR);
+    if (hicon) {
+        this->TraySetIcon(hicon);
+    }
     this->TraySetToolTip(_T("Bingte VMTool GUI"));
     this->TraySetMessage(WM_TRAY_ICON_NOTIFY_MESSAGE);
     this->TraySetId(1);
@@ -145,6 +121,11 @@ LRESULT Cbtvmgui::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
             return 1;
         } else if (lParam == WM_RBUTTONDOWN) {
             /*now to show the menu*/
+            CMenuWnd* pMenu = new CMenuWnd(_T("menutest.xml"),m_hWnd);
+            POINT pt;
+            GetCursorPos(&pt);
+            CDuiPoint point(pt.x,pt.y);
+            pMenu->Init(NULL, _T("xml"), point);
             return 1;
         }
     }
