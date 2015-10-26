@@ -5,6 +5,8 @@
 
 #define WM_TRAY_ICON_NOTIFY_MESSAGE (WM_USER+0x1)
 
+#define WM_TIMER_ID (0x663)
+
 /************************************************
 *   these two menu item is in xml file of command attribute
 ************************************************/
@@ -22,6 +24,10 @@ Cbtvmgui::Cbtvmgui(LPCTSTR pszXMLPath)
 
 Cbtvmgui::~Cbtvmgui()
 {
+    if (this->m_timerid > 0) {
+        ::KillTimer(this->GetHWND(),this->m_timerid);
+    }
+    this->m_timerid = 0;
     DEBUG_INFO("\n");
 }
 
@@ -105,6 +111,9 @@ void Cbtvmgui::InitWindow()
     this->TraySetMessage(WM_TRAY_ICON_NOTIFY_MESSAGE);
     this->TraySetId(1);
 
+    this->m_timerid = WM_TIMER_ID;
+    ::SetTimer(this->GetHWND(),this->m_timerid,1000,NULL);
+
     CenterWindow();
 }
 
@@ -151,6 +160,9 @@ LRESULT Cbtvmgui::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
             Close();
         }
 
+        return 1;
+    } else if (uMsg == WM_TIMER && wParam == this->m_timerid) {
+        DEBUG_INFO("get timer\n");
         return 1;
     }
     return __super::HandleMessage(uMsg,wParam,lParam);
