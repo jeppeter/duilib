@@ -62,9 +62,11 @@ public:
     void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
     void SetTopWnd(HWND hwnd);
     void SetMessage(UINT msg);
+    void SetObserver(ContextMenuObserver* pObserver);
 private:
     HWND m_hTopWnd;
     UINT m_msg;
+    ContextMenuObserver* m_pObserver;
 };
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -79,6 +81,7 @@ class CMenuWnd : public CXMLWnd, public ContextMenuReceiver
 {
 public:
     CMenuWnd(LPCTSTR pszXMLPath,HWND hParent = NULL );
+    virtual ~CMenuWnd();
     void Init(CMenuElementUI* pOwner, LPCTSTR pSkinType, POINT point);
     LPCTSTR GetWindowClassName() const;
     void OnFinalMessage(HWND hWnd);
@@ -88,6 +91,7 @@ public:
     BOOL Receive(ContextMenuParam param);
     void SetTopWnd(HWND hwnd);
     void SetMessage(UINT msg);
+    void SetObserver(ContextMenuObserver *pObserver);
 
 public:
     HWND m_hParent;
@@ -99,6 +103,8 @@ public:
     CMenuUI* m_pLayout;
     HWND m_hTopWnd;
     UINT m_msg;
+    ContextMenuObserver* m_pCreateObserver;
+    ContextMenuObserver* m_pObserver;
 };
 
 class CListContainerElementUI;
@@ -129,12 +135,13 @@ public:
     void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
     void SetTopWnd(HWND hwnd);
     void SetMessage(UINT msg);
-
+    void SetObserver(ContextMenuObserver* pObserver);
 protected:
     CMenuWnd* m_pWindow;
     HWND m_hTopWnd;
     int m_command;
     UINT m_msg;
+    ContextMenuObserver* m_pObserver;
 };
 
 } // namespace DuiLib

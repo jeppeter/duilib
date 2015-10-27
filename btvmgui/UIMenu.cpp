@@ -9,7 +9,6 @@ namespace DuiLib
 
 /////////////////////////////////////////////////////////////////////////////////////
 //
-ContextMenuObserver s_context_menu_observer;
 
 // MenuUI
 const TCHAR* const kMenuUIClassName = _T("MenuUI");
@@ -21,12 +20,14 @@ CMenuUI::CMenuUI()
         GetHeader()->SetVisible(false);
     this->m_msg = 0;
     this->m_hTopWnd = NULL;
+    this->m_pObserver = NULL;
 }
 
 CMenuUI::~CMenuUI()
 {
     this->m_msg = 0;
     this->m_hTopWnd = NULL;
+    this->m_pObserver = NULL;
 }
 
 void CMenuUI::SetTopWnd(HWND hwnd)
@@ -39,6 +40,12 @@ void CMenuUI::SetMessage(UINT msg)
 {
     this->m_msg = msg;
     return ;
+}
+
+void CMenuUI::SetObserver(ContextMenuObserver * pObserver)
+{
+    this->m_pObserver = pObserver;
+    return;
 }
 
 LPCTSTR CMenuUI::GetClass() const
@@ -143,11 +150,13 @@ class CMenuBuilderCallback: public IDialogBuilderCallback
             CMenuUI* pMenu=new CMenuUI();
             pMenu->SetTopWnd(this->m_hTopWnd);
             pMenu->SetMessage(this->m_msg);
+            pMenu->SetObserver(this->m_pObserver);
             return pMenu;
         } else if (_tcsicmp(pstrClass, kMenuElementUIInterfaceName) == 0) {
             CMenuElementUI* pElem=new CMenuElementUI();
             pElem->SetTopWnd(this->m_hTopWnd);
             pElem->SetMessage(this->m_msg);
+            pElem->SetObserver(this->m_pObserver);
             return pElem;
         }
         return NULL;
@@ -163,9 +172,16 @@ public:
         this->m_msg = msg;
         return ;
     }
+
+    void SetObserver(ContextMenuObserver* pObserver)
+    {
+        this->m_pObserver = pObserver;
+        return ;
+    }
 private:
     HWND m_hTopWnd;
     UINT m_msg;
+    ContextMenuObserver* m_pObserver;
 };
 
 CMenuWnd::CMenuWnd(LPCTSTR pszXMLPath,HWND hParent ): CXMLWnd(pszXMLPath),
@@ -173,7 +189,10 @@ CMenuWnd::CMenuWnd(LPCTSTR pszXMLPath,HWND hParent ): CXMLWnd(pszXMLPath),
     m_pOwner(NULL),
     m_pLayout(),
     m_xml(pszXMLPath) , m_msg(0),m_hTopWnd(NULL)
-{}
+{
+    this->m_pObserver = NULL;
+    this->m_pCreateObserver = NULL;
+}
 
 void CMenuWnd::SetTopWnd(HWND hwnd)
 {
@@ -184,6 +203,12 @@ void CMenuWnd::SetTopWnd(HWND hwnd)
 void CMenuWnd::SetMessage(UINT msg)
 {
     this->m_msg = msg;
+    return ;
+}
+
+void CMenuWnd::SetObserver(ContextMenuObserver * pObserver)
+{
+    this->m_pObserver = pObserver;
     return ;
 }
 
@@ -221,8 +246,9 @@ void CMenuWnd::Init(CMenuElementUI* pOwner,  LPCTSTR pSkinType, POINT point)
         m_sType = pSkinType;
 
     //m_xml = this->GetSkinFile();
-
-    s_context_menu_observer.AddReceiver(this);
+    this->m_pCreateObserver = new ContextMenuObserver();
+    this->m_pCreateObserver->AddReceiver(this);
+    this->m_pObserver = this->m_pCreateObserver;
 
     this->Create((m_pOwner == NULL) ? m_hParent : m_pOwner->GetManager()->GetPaintWindow(), NULL, WS_POPUP, WS_EX_TOOLWINDOW | WS_EX_TOPMOST, CDuiRect());
     // HACK: Don't deselect the parent's caption
@@ -239,9 +265,20 @@ LPCTSTR CMenuWnd::GetWindowClassName() const
     return _T("MenuWnd");
 }
 
+CMenuWnd::~CMenuWnd()
+{
+    if (this->m_pObserver) {
+        this->m_pObserver = NULL;
+    }
+    if (this->m_pCreateObserver) {
+        delete this->m_pCreateObserver ;
+    }
+    this->m_pCreateObserver =NULL;
+}
+
 void CMenuWnd::OnFinalMessage(HWND hWnd)
 {
-    RemoveObserver();
+    this->RemoveObserver();
     if( m_pOwner != NULL ) {
         for( int i = 0; i < m_pOwner->GetCount(); i++ ) {
             if( static_cast<CMenuElementUI*>(m_pOwner->GetItemAt(i)->GetInterface(kMenuElementUIInterfaceName)) != NULL ) {
@@ -276,6 +313,7 @@ LRESULT CMenuWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
             m_pLayout = new CMenuUI();
             m_pLayout->SetTopWnd(this->m_hTopWnd);
             m_pLayout->SetMessage(this->m_msg);
+            m_pLayout->SetObserver(this->m_pObserver);
             m_pLayout->SetManager(&m_pm, NULL, true);
             LPCTSTR pDefaultAttributes = m_pOwner->GetManager()->GetDefaultAttributeList(kMenuUIInterfaceName);
             if( pDefaultAttributes ) {
@@ -341,7 +379,7 @@ LRESULT CMenuWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
             LONG chBottomAlgin = 0;
 
             RECT rcPreWindow = {0};
-            ContextMenuObserver::Iterator<BOOL, ContextMenuParam> iterator(s_context_menu_observer);
+            ContextMenuObserver::Iterator<BOOL, ContextMenuParam> iterator(*(this->m_pObserver));
             ReceiverImplBase<BOOL, ContextMenuParam>* pReceiver = iterator.next();
             while( pReceiver != NULL ) {
                 CMenuWnd* pContextMenu = dynamic_cast<CMenuWnd*>(pReceiver);
@@ -403,6 +441,7 @@ LRESULT CMenuWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
             CMenuBuilderCallback menuCallback;
             menuCallback.SetTopWnd(this->m_hTopWnd);
             menuCallback.SetMessage(this->m_msg);
+            menuCallback.SetObserver(this->m_pObserver);
             CControlUI* pRoot = builder.Create(m_xml, m_sType.GetData(), &menuCallback, &m_pm);
             m_pm.AttachDialog(pRoot);
 
@@ -478,7 +517,7 @@ LRESULT CMenuWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
         ContextMenuParam param;
         param.hWnd = GetHWND();
 
-        ContextMenuObserver::Iterator<BOOL, ContextMenuParam> iterator(s_context_menu_observer);
+        ContextMenuObserver::Iterator<BOOL, ContextMenuParam> iterator(*(this->m_pObserver));
         ReceiverImplBase<BOOL, ContextMenuParam>* pReceiver = iterator.next();
         while( pReceiver != NULL ) {
             CMenuWnd* pContextMenu = dynamic_cast<CMenuWnd*>(pReceiver);
@@ -491,7 +530,7 @@ LRESULT CMenuWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         if( !bInMenuWindowList ) {
             param.wParam = 1;
-            s_context_menu_observer.RBroadcast(param);
+            this->m_pObserver->RBroadcast(param);
 
             return 0;
         }
@@ -535,6 +574,12 @@ void CMenuElementUI::SetMessage(UINT msg)
 {
     this->m_msg = msg;
     return ;
+}
+
+void CMenuElementUI::SetObserver(ContextMenuObserver * pObserver)
+{
+    this->m_pObserver = pObserver;
+    return;
 }
 
 CMenuElementUI::~CMenuElementUI()
@@ -657,7 +702,7 @@ void CMenuElementUI::DoEvent(TEventUI& event)
             ContextMenuParam param;
             param.hWnd = m_pManager->GetPaintWindow();
             param.wParam = 2;
-            s_context_menu_observer.RBroadcast(param);
+            this->m_pObserver->RBroadcast(param);
             m_pOwner->SelectItem(GetIndex(), true);
         }
         return;
@@ -685,7 +730,7 @@ void CMenuElementUI::DoEvent(TEventUI& event)
                 ContextMenuParam param;
                 param.hWnd = m_pManager->GetPaintWindow();
                 param.wParam = 1;
-                s_context_menu_observer.RBroadcast(param);
+                this->m_pObserver->RBroadcast(param);
             }
         }
         return;
@@ -713,7 +758,7 @@ bool CMenuElementUI::Activate()
             ContextMenuParam param;
             param.hWnd = m_pManager->GetPaintWindow();
             param.wParam = 1;
-            s_context_menu_observer.RBroadcast(param);
+            this->m_pObserver->RBroadcast(param);
         }
 
         return true;
@@ -734,11 +779,12 @@ void CMenuElementUI::CreateMenuWnd()
     ASSERT(m_pWindow);
     m_pWindow->SetTopWnd(this->m_hTopWnd);
     m_pWindow->SetMessage(this->m_msg);
+    m_pWindow->SetObserver(this->m_pObserver);
 
     ContextMenuParam param;
     param.hWnd = m_pManager->GetPaintWindow();
     param.wParam = 2;
-    s_context_menu_observer.RBroadcast(param);
+    this->m_pObserver->RBroadcast(param);
 
     m_pWindow->Init(static_cast<CMenuElementUI*>(this), _T(""), CDuiPoint());
 }
