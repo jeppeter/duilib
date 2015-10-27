@@ -4,6 +4,7 @@
 #include "resource.h"
 
 #define WM_TRAY_ICON_NOTIFY_MESSAGE (WM_USER+0x1)
+#define MENU_ITEM_MESSAGE                        (WM_USER+0x20)
 
 #define WM_TIMER_ID (0x663)
 
@@ -148,6 +149,7 @@ LRESULT Cbtvmgui::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
             CDuiPoint point(pt.x,pt.y);
             DEBUG_INFO("current 0x%x\n",this->GetHWND());
             pMenu->SetTopWnd(this->GetHWND());
+            pMenu->SetMessage(MENU_ITEM_MESSAGE);
             pMenu->Init(NULL, _T("xml"), point);
             return 1;
         }

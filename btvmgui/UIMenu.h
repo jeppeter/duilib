@@ -8,7 +8,6 @@
 #include "duilib.h"
 #include "observer_impl_base.hpp"
 
-#define MENU_ITEM_MESSAGE  (WM_USER+0x20)
 
 
 namespace DuiLib
@@ -62,8 +61,10 @@ public:
 
     void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
     void SetTopWnd(HWND hwnd);
+    void SetMessage(UINT msg);
 private:
     HWND m_hTopWnd;
+    UINT m_msg;
 };
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -86,6 +87,7 @@ public:
 
     BOOL Receive(ContextMenuParam param);
     void SetTopWnd(HWND hwnd);
+    void SetMessage(UINT msg);
 
 public:
     HWND m_hParent;
@@ -96,6 +98,7 @@ public:
     CMenuElementUI* m_pOwner;
     CMenuUI* m_pLayout;
     HWND m_hTopWnd;
+    UINT m_msg;
 };
 
 class CListContainerElementUI;
@@ -125,11 +128,13 @@ public:
     void CreateMenuWnd();
     void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
     void SetTopWnd(HWND hwnd);
+    void SetMessage(UINT msg);
 
 protected:
     CMenuWnd* m_pWindow;
     HWND m_hTopWnd;
     int m_command;
+    UINT m_msg;
 };
 
 } // namespace DuiLib
