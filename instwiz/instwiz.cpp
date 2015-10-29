@@ -24,3 +24,15 @@ CDuiString CInstWiz::GetSkinFolder()
     return _T("");
 }
 
+void CInstWiz::SetTableIdx(LPCTSTR tabname, int idx)
+{
+    CTabLayoutUI* pTab = NULL;
+    pTab = static_cast<CTabLayoutUI*>( this->m_PaintManager.FindControl(tabname) );
+    if (pTab == NULL) {
+        return ;
+    }
+
+    pTab->SelectItem(idx);
+    return ;
+}
+

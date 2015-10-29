@@ -10,6 +10,7 @@ public:
     ~CInstWiz() {};
     virtual LPCTSTR GetWindowClassName() const;
     void       SetSkinXMLPath( LPCTSTR path );
+    void SetTableIdx(LPCTSTR tabname,int idx);
 protected:
     virtual CDuiString GetSkinFolder();
     virtual CDuiString GetSkinFile();

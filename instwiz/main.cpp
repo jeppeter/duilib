@@ -9,8 +9,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     CPaintManagerUI::SetInstance(hInstance);
     MSG msg = { 0 };
     CInstWiz *pFrame = new CInstWiz();
-    pFrame->SetSkinXMLPath(_T("InstallPackages.xml") );
+    pFrame->SetSkinXMLPath(_T("UninstallPackages_english.xml") );
     pFrame->Create(NULL, _T("BTVMGUI"), 0,0);
+    pFrame->CenterWindow();
+    pFrame->SetTableIdx(_T("WizardTab"),2);
     pFrame->ShowModal();
     DEBUG_INFO("\n");
     delete pFrame;

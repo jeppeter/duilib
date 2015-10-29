@@ -9,28 +9,28 @@
             <VerticalLayout name="VerticalLayoutUI2" width="503" height="33">
                 <Button name="Wizard_CloseBtn" float="true" pos="454,1,0,0" width="39" height="20" textcolor="#00FF0000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="btn_close_normal.png" hotimage="btn_close_highlight.png" pushedimage="btn_close_down.png" />
                 <Button name="Wizard_MinBtn" float="true" pos="426,1,0,0" width="28" height="20" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="btn_mini_normal.png" hotimage="btn_mini_highlight.png" pushedimage="btn_mini_down.png" />              
-                <Label name="TitleTextLab" text="360Safe卸载向导" float="true" pos="44,5,0,0" width="225" height="23" textcolor="#00000000" disabledtextcolor="#FFA7A6AA"  />
+                <Label name="TitleTextLab" text="BTVMTOOL Uninst" float="true" pos="44,5,0,0" width="225" height="23" textcolor="#00000000" disabledtextcolor="#FFA7A6AA"  />
                 <Label name="LabelUI1" float="true" pos="9,5,0,0" width="33" height="24" bkimage="logo.png" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" />      
             </VerticalLayout>
             <VerticalLayout name="VerticalLayoutUI4" width="503" height="330">
                 <TabLayout name="WizardTab" width="503" height="330" >
                     <VerticalLayout name="VerticalLayoutUI12" width="503" height="330">
-                        <Button name="UninstallBtn4UninstallPage" text="卸载" float="true" pos="309,268,0,0" width="80" height="28" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="btn_normal.png" hotimage="btn_hot.png" pushedimage="btn_hot.png" />
-                        <Button name="CancelBtn4UninstallPage" text="取消" float="true" pos="396,268,0,0" width="80" height="28" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="btn_normal.png" hotimage="btn_hot.png" pushedimage="btn_hot.png" />
-                        <Label name="LabelUI2" text="确定要从您的计算机中卸载360Safe？" float="true" pos="32,36,0,0" width="304" height="30" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" />
+                        <Button name="UninstallBtn4UninstallPage" text="Uninstall" float="true" pos="309,268,0,0" width="80" height="28" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="btn_normal.png" hotimage="btn_hot.png" pushedimage="btn_hot.png" />
+                        <Button name="CancelBtn4UninstallPage" text="Cancel" float="true" pos="396,268,0,0" width="80" height="28" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="btn_normal.png" hotimage="btn_hot.png" pushedimage="btn_hot.png" />
+                        <Label name="LabelUI2" text="Remove BTVMTOOL really？" float="true" pos="32,36,0,0" width="304" height="30" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" />
                         <Label name="LabelUI3" float="true" bkimage="uninstall_bkg.png" pos="32,88,0,0" width="250" height="160" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" />
                     </VerticalLayout>
                     <VerticalLayout name="VerticalLayoutUI13" width="503" height="330">
-                        <Label name="UninstallTitleLab" float="true" pos="38,23,0,0" width="133" height="31" bkimage="uninsting.png" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" />
+                        <Label name="UninstallTitleLab" float="true" pos="38,23,0,0" width="133" height="31" bkimage="uninsting_english.png" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" />
                         <Progress name="Wizard_UninstallProgress" float="true" pos="22,263,0,0" width="459" height="22" bkimage="progressbar_bkimg.png" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" foreimage="progressbar.png" min="0" max="30000" value="50" hor="true" />
                         <Label name="Wizard_BackgroundUninstallPage" float="true" pos="2,74,0,0" width="501" height="163" bkimage="embed4Page3_1.png" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" />
                     </VerticalLayout>
                     <VerticalLayout name="VerticalLayoutUI14" width="503" height="330">
-                        <Label name="LabelUI1" text="360Safe已从您的计算机中移除。" float="true" pos="32,36,0,0" width="254" height="30" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" />
-                        <Label name="LabelUI11" text="请点击“完成”退出。" float="true" pos="32,71,0,0" width="258" height="30" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" />
-                        <Label name="LabelUI9" text="欢迎登录官方网站了解更多安全产品介绍 &lt;u&gt;&lt;c #00ff8000&gt;http://110.taobao.com&lt;/c&gt;&lt;/u&gt;" float="true" pos="32,276,0,0" width="380" height="18" textcolor="#005A5A5A" disabledtextcolor="#FFA7A6AA" showhtml="true" />
+                        <Label name="LabelUI1" text="BTVMTOOL Remove totally" float="true" pos="32,36,0,0" width="254" height="30" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" />
+                        <Label name="LabelUI11" text="Click Completed exit" float="true" pos="32,71,0,0" width="258" height="30" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" />
+                        <Label name="LabelUI9" text="Go to Website for more &lt;u&gt;&lt;c #00ff8000&gt;http://www.bingte.com&lt;/c&gt;&lt;/u&gt;" float="true" pos="32,276,0,0" width="380" height="18" textcolor="#005A5A5A" disabledtextcolor="#FFA7A6AA" showhtml="true" />
                         <Button name="Wizard_110Btn4UninstallPage" float="true" pos="248,276,0,0" width="116" height="18" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" />
-                        <Button name="FinishedBtn4UninstallPage" text="完成" float="true" pos="390,271,0,0" width="80" height="28" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="btn_normal.png" hotimage="btn_hot.png" pushedimage="btn_hot.png" />
+                        <Button name="FinishedBtn4UninstallPage" text="Completed" float="true" pos="390,271,0,0" width="80" height="28" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="btn_normal.png" hotimage="btn_hot.png" pushedimage="btn_hot.png" />
                     </VerticalLayout>
                 </TabLayout>
             </VerticalLayout>
