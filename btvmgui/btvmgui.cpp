@@ -123,7 +123,7 @@ LRESULT Cbtvmgui::OnDestroy(UINT uMsg, WPARAM wParam, LPARAM  lParam, BOOL& bHan
 {
     LRESULT res;
     DEBUG_INFO("\n");
-    res = Ctraydlg::OnDestroy(uMsg, wParam, lParam,bHandled);
+    res = __super::OnDestroy(uMsg, wParam, lParam,bHandled);
     DEBUG_INFO("\n");
     return res;
 }

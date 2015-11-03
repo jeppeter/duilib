@@ -13,6 +13,7 @@ Ctraydlg::Ctraydlg( LPCTSTR pszXMLPath )
     this->m_NotifyIconData.uCallbackMessage = 0;
     this->m_NotifyIconData.hIcon = NULL;
     this->m_NotifyIconData.uFlags = 0;
+    this->m_trayshow = 0;
 }
 
 BOOL Ctraydlg::TrayIsVisible()
