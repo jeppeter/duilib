@@ -8,6 +8,13 @@
 
 #pragma once
 
+#ifdef _M_X64
+#define  ADDR_T   ULONG64
+#else
+#define  ADDR_T   ULONG
+#endif
+
+
 #ifdef __GNUC__
 // 怎么都没找到min，max的头文件-_-
 #ifndef min

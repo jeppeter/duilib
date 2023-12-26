@@ -5,7 +5,7 @@
 
 namespace DuiLib
 {
-	class UILIB_API COptionUI : public CButtonUI
+	class DUILIB_API COptionUI : public CButtonUI
 	{
 	public:
 		COptionUI();
@@ -29,7 +29,8 @@ namespace DuiLib
 		DWORD GetSelectedTextColor();
 
 		void SetSelectedBkColor(DWORD dwBkColor);
-		DWORD GetSelectBkColor();
+		DWORD GetSelectedBkColor();
+		DUI_DEPRECATED DWORD GetSelectBkColor(); // deprecated, use GetSelectedBkColor instead
 
 		LPCTSTR GetForeImage();
 		void SetForeImage(LPCTSTR pStrImage);
@@ -37,7 +38,7 @@ namespace DuiLib
 		LPCTSTR GetGroup() const;
 		void SetGroup(LPCTSTR pStrGroupName = NULL);
 		bool IsSelected() const;
-		virtual void Selected(bool bSelected);
+		virtual void Selected(bool bSelected, bool bTriggerEvent=true);
 
 		SIZE EstimateSize(SIZE szAvailable);
 		void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);

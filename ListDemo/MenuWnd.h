@@ -59,7 +59,7 @@ public:
 
         BLENDFUNCTION bf = { AC_SRC_OVER, 0, 255, AC_SRC_ALPHA };
         POINT ptPos   = { rcWnd.left, rcWnd.top };
-        SIZE sizeWnd  = { (LONG) dwWidth,(LONG) dwHeight };
+        SIZE sizeWnd  = { dwWidth, dwHeight };
         POINT ptSrc   = { 0, 0 };
         UpdateLayeredWindow(m_hWnd, hDcPaint, &ptPos, &sizeWnd, hDcBackground, &ptSrc, 0, &bf, ULW_ALPHA);
 

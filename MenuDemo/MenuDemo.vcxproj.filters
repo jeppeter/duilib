@@ -2,14 +2,14 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{1bb7533c-b8a0-4b2f-835c-0b08667a1271}</UniqueIdentifier>
+      <UniqueIdentifier>{20b1c3d9-376c-4de4-b604-48ec3c5c00e2}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{79b9d77d-8818-4e88-bb69-6d6285eb94f2}</UniqueIdentifier>
+      <UniqueIdentifier>{1db34056-bb54-457c-b98c-2e032760fe94}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files">
-      <UniqueIdentifier>{9f0395fd-76f7-437a-adca-6b99821695b7}</UniqueIdentifier>
+      <UniqueIdentifier>{4fad4cf7-23cc-414e-8d39-b6128b5cc42a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -30,6 +30,9 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SkinSetting.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -54,6 +57,15 @@
     <ClInclude Include="resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="About.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuNotify.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SkinSetting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MenuDemo.rc">
@@ -61,11 +73,11 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="res\menutest.xml">
+    <None Include="res\menutest.xml">
       <Filter>Resource Files</Filter>
-    </Xml>
-    <Xml Include="res\skin.xml">
+    </None>
+    <None Include="res\skin.xml">
       <Filter>Resource Files</Filter>
-    </Xml>
+    </None>
   </ItemGroup>
 </Project>

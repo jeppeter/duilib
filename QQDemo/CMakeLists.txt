@@ -14,4 +14,4 @@ target_link_libraries(QQDemo duilib)
 
 add_custom_command(TARGET QQDemo POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_if_different
-  ${PROJECT_BINARY_DIR}/bin/QQDemo.exe ${PROJECT_SOURCE_DIR}/bin/QQDemo.exe)
+  ${PROJECT_BINARY_DIR}/bin/$(Configuration)/QQDemo.exe ${PROJECT_SOURCE_DIR}/bin/QQDemo.exe)

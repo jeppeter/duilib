@@ -14,4 +14,4 @@ target_link_libraries(RichListDemo duilib)
 
 add_custom_command(TARGET RichListDemo POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_if_different
-  ${PROJECT_BINARY_DIR}/bin/RichListDemo.exe ${PROJECT_SOURCE_DIR}/bin/RichListDemo.exe)
+  ${PROJECT_BINARY_DIR}/bin/$(Configuration)/RichListDemo.exe ${PROJECT_SOURCE_DIR}/bin/RichListDemo.exe)

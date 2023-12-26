@@ -42,7 +42,7 @@ public:
                 delete _children[i]; 
         }
         NodeData& data() { return _data; }	
-        int num_children() const { return (int) _children.size(); }
+        int num_children() const { return _children.size(); }
         Node* child(int i)	{ return _children[i]; }
         Node* parent() { return ( _parent);	}
         bool has_children() const {	return num_children() > 0; }
@@ -88,38 +88,38 @@ public:
     bool Add(CControlUI* pControl)
     {
         if( !pControl ) return false;
-        if( _tcscmp(pControl->GetClass(), _T("ListLabelElementUI")) != 0 ) return false;
+        if( _tcscmp(pControl->GetClass(), DUI_CTR_LISTLABELELEMENT) != 0 ) return false;
         return CListUI::Add(pControl);
     }
 
     bool AddAt(CControlUI* pControl, int iIndex)
     {
         if( !pControl ) return false;
-        if( _tcscmp(pControl->GetClass(), _T("ListLabelElementUI")) != 0 ) return false;
+        if( _tcscmp(pControl->GetClass(), DUI_CTR_LISTLABELELEMENT) != 0 ) return false;
         return CListUI::AddAt(pControl, iIndex);
     }
 
-    bool Remove(CControlUI* pControl)
+    bool Remove(CControlUI* pControl, bool bDoNotDestroy=false)
     {
         if( !pControl ) return false;
-        if( _tcscmp(pControl->GetClass(), _T("ListLabelElementUI")) != 0 ) return false;
+        if( _tcscmp(pControl->GetClass(), DUI_CTR_LISTLABELELEMENT) != 0 ) return false;
 
-		if (reinterpret_cast<Node*>(static_cast<CListLabelElementUI*>(pControl->GetInterface(_T("ListLabelElement")))->GetTag()) == NULL)
-			return CListUI::Remove(pControl);
+		if (reinterpret_cast<Node*>(static_cast<CListLabelElementUI*>(pControl->GetInterface(DUI_CTR_LISTLABELELEMENT))->GetTag()) == NULL)
+			return CListUI::Remove(pControl, bDoNotDestroy);
 		else
-			return RemoveNode(reinterpret_cast<Node*>(static_cast<CListLabelElementUI*>(pControl->GetInterface(_T("ListLabelElement")))->GetTag()));
+			return RemoveNode(reinterpret_cast<Node*>(static_cast<CListLabelElementUI*>(pControl->GetInterface(DUI_CTR_LISTLABELELEMENT))->GetTag()));
     }
 
-    bool RemoveAt(int iIndex)
+    bool RemoveAt(int iIndex, bool bDoNotDestroy=false)
     {
         CControlUI* pControl = GetItemAt(iIndex);
 		if( !pControl ) return false;
-		if( _tcscmp(pControl->GetClass(), _T("ListLabelElementUI")) != 0 ) return false;
+		if( _tcscmp(pControl->GetClass(), DUI_CTR_LISTLABELELEMENT) != 0 ) return false;
 
-		if (reinterpret_cast<Node*>(static_cast<CListLabelElementUI*>(pControl->GetInterface(_T("ListLabelElement")))->GetTag()) == NULL)
-			return CListUI::RemoveAt(iIndex);
+		if (reinterpret_cast<Node*>(static_cast<CListLabelElementUI*>(pControl->GetInterface(DUI_CTR_LISTLABELELEMENT))->GetTag()) == NULL)
+			return CListUI::RemoveAt(iIndex, bDoNotDestroy);
 		else
-			return RemoveNode(reinterpret_cast<Node*>(static_cast<CListLabelElementUI*>(pControl->GetInterface(_T("ListLabelElement")))->GetTag()));
+			return RemoveNode(reinterpret_cast<Node*>(static_cast<CListLabelElementUI*>(pControl->GetInterface(DUI_CTR_LISTLABELELEMENT))->GetTag()));
 	}
 
     void RemoveAll()
@@ -221,8 +221,8 @@ public:
             html_text += _T("<x 24>");
         }
         if( node->data()._level < 3 ) {
-            if( node->data()._expand ) html_text += _T("<a><i tree_expand.png 2 1></a>");
-            else html_text += _T("<a><i tree_expand.png 2 0></a>");
+            if( node->data()._expand ) html_text += _T("<v center><a><i tree_expand.png 2 1></a></v>");
+            else html_text += _T("<v center><a><i tree_expand.png 2 0></a></v>");
         }
         html_text += node->data()._text;
         pListElement->SetText(html_text);
@@ -277,8 +277,8 @@ public:
             html_text += _T("<x 24>");
         }
         if( node->data()._level < 3 ) {
-            if( node->data()._expand ) html_text += _T("<a><i tree_expand.png 2 1></a>");
-            else html_text += _T("<a><i tree_expand.png 2 0></a>");
+            if( node->data()._expand ) html_text += _T("<v center><a><i tree_expand.png 2 1></a></v>");
+            else html_text += _T("<v center><a><i tree_expand.png 2 0></a></v>");
         }
         html_text += node->data()._text;
         node->data()._pListElement->SetText(html_text);
@@ -290,7 +290,7 @@ public:
         Node* end = node->get_last_child();
         for( int i = begin->data()._pListElement->GetIndex(); i <= end->data()._pListElement->GetIndex(); ++i ) {
             CControlUI* control = GetItemAt(i);
-            if( _tcscmp(control->GetClass(), _T("ListLabelElementUI")) == 0 ) {
+            if( _tcscmp(control->GetClass(), DUI_CTR_LISTLABELELEMENT) == 0 ) {
                 Node* local_parent = ((GameListUI::Node*)control->GetTag())->parent();
                 control->SetInternVisible(local_parent->data()._expand && local_parent->data()._pListElement->IsVisible());
             }
@@ -390,7 +390,7 @@ public:
             m_dwDelayDeltaY = 0;
             m_dwDelayNum = 0;
             m_dwDelayLeft = 0;
-            ::SetCursor(::LoadCursor(NULL, IDC_HAND));
+            ::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND)));
             m_pManager->SetTimer(this, SCROLL_TIMERID, 50U);
             return;
         }
@@ -398,7 +398,7 @@ public:
         {
             if( (m_uButtonState & UISTATE_CAPTURED) != 0 ) {
                 m_uButtonState &= ~UISTATE_CAPTURED;
-                ::SetCursor(::LoadCursor(NULL,IDC_ARROW));
+                ::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE(IDC_ARROW)));
                 if( m_ptLastMouse.y != event.ptMouse.y ) {
                     m_dwDelayDeltaY = (event.ptMouse.y - m_ptLastMouse.y);
                     if( m_dwDelayDeltaY > 120 ) m_dwDelayDeltaY = 120;
