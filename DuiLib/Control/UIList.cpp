@@ -1778,7 +1778,7 @@ void CListHeaderItemUI::DoEvent(TEventUI& event)
     {
         RECT rcSeparator = GetThumbRect();
         if( IsEnabled() && m_bDragable && ::PtInRect(&rcSeparator, event.ptMouse) ) {
-            ::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE)));
+            ::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE((WORD)(ADDR_T)IDC_SIZEWE)));
             return;
         }
     }
@@ -2414,7 +2414,7 @@ void CListTextElementUI::DoEvent(TEventUI& event)
     if( event.Type == UIEVENT_SETCURSOR ) {
         for( int i = 0; i < m_nLinks; i++ ) {
             if( ::PtInRect(&m_rcLinks[i], event.ptMouse) ) {
-                ::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND)));
+                ::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE((WORD)(ADDR_T)IDC_HAND)));
                 return;
             }
         }      

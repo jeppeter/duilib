@@ -1042,7 +1042,7 @@ bool CPaintManagerUI::MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, LR
 					}
                     BLENDFUNCTION bf = { AC_SRC_OVER, 0, m_nOpacity, AC_SRC_ALPHA };
                     POINT ptPos   = { rcWnd.left, rcWnd.top };
-                    SIZE sizeWnd  = { dwWidth, dwHeight };
+                    SIZE sizeWnd  = { (LONG)dwWidth, (LONG)dwHeight };
                     POINT ptSrc   = { 0, 0 };
                     g_fUpdateLayeredWindow(m_hWndPaint, m_hDcPaint, &ptPos, &sizeWnd, m_hDcOffscreen, &ptSrc, 0, &bf, ULW_ALPHA);
                 }
@@ -1749,7 +1749,7 @@ int CPaintManagerUI::MessageLoop()
 			//}
         }
     }
-    return msg.wParam;
+    return (int)msg.wParam;
 }
 
 void CPaintManagerUI::Term()

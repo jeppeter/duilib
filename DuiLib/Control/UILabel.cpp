@@ -92,7 +92,7 @@ namespace DuiLib
 #ifdef _UNICODE
 			m_pWideText = (LPWSTR)m_sText.GetData();
 #else 
-			int iLen = _tcslen(pstrText);
+			int iLen = (int)_tcslen(pstrText);
 			if (m_pWideText) delete[] m_pWideText;
 			m_pWideText = new WCHAR[iLen + 1];
 			::ZeroMemory(m_pWideText, (iLen + 1) * sizeof(WCHAR));

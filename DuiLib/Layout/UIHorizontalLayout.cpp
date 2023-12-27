@@ -310,7 +310,7 @@ namespace DuiLib
 			{
 				RECT rcSeparator = GetThumbRect(false);
 				if( IsEnabled() && ::PtInRect(&rcSeparator, event.ptMouse) ) {
-					::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE)));
+					::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE((WORD)(ADDR_T)IDC_SIZEWE)));
 					return;
 				}
 			}
