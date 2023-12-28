@@ -453,8 +453,6 @@ namespace DuiLib
 
 	CDuiString::operator LPCTSTR() const 
 	{ 
-		DUILIB_DEBUG("m_pstr %p",m_pstr);
-		DUILIB_T_DEBUG(_T("return m_pstr %s",m_pstr));
 		return m_pstr; 
 	}
 
@@ -479,7 +477,6 @@ namespace DuiLib
 			}
 			_tcscat(m_szBuffer, pstr);			
 		}
-		DUILIB_BUFFER_FMT(m_pstr,nNewLength*sizeof(*m_pstr),"Buffer Append");
 	}
 
 	void CDuiString::Assign(LPCTSTR pstr, int cchMax)

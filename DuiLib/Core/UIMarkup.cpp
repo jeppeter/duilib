@@ -380,59 +380,42 @@ bool CMarkup::LoadFromFile(LPCTSTR pstrFilename, int encoding)
     CDuiString sFile = CPaintManagerUI::GetResourcePath();
     if( CPaintManagerUI::GetResourceZip().IsEmpty() ) {
         sFile += pstrFilename;
-        DUILIB_T_DEBUG(_T("sFile %s"),sFile.GetData());
         HANDLE hFile = ::CreateFile(sFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-        DUILIB_T_DEBUG(_T("Load file %s sFile %s"),pstrFilename,sFile.GetData());
         if( hFile == INVALID_HANDLE_VALUE ) return _Failed(_T("Error opening file"));
         DWORD dwSize = ::GetFileSize(hFile, NULL);
-        DUILIB_DEBUG(" ");
         if( dwSize == 0 ) return _Failed(_T("File is empty"));
-        DUILIB_DEBUG(" ");
         if ( dwSize > 4096*1024 ) return _Failed(_T("File too large"));
 
         DWORD dwRead = 0;
         BYTE* pByte = new BYTE[ dwSize ];
         ::ReadFile( hFile, pByte, dwSize, &dwRead, NULL );
         ::CloseHandle( hFile );
-				DUILIB_DEBUG(" ");
         if( dwRead != dwSize ) {
             delete[] pByte;
             Release();
-            DUILIB_DEBUG(" ");
             return _Failed(_T("Could not read file"));
         }
         bool ret = LoadFromMem(pByte, dwSize, encoding);
         delete[] pByte;
-				DUILIB_DEBUG(" ");
         return ret;
     }
     else {
-    	  DUILIB_DEBUG(" ");
         sFile += CPaintManagerUI::GetResourceZip();
         HZIP hz = NULL;
         if( CPaintManagerUI::IsCachedResourceZip() ) hz = (HZIP)CPaintManagerUI::GetResourceZipHandle();
         else hz = OpenZip((void*)sFile.GetData(), 0, 2);
-        DUILIB_DEBUG(" ");
         if( hz == NULL ) return _Failed(_T("Error opening zip file"));
-        DUILIB_DEBUG(" ");
         ZIPENTRY ze; 
         int i; 
-        DUILIB_DEBUG(" ");
         if( FindZipItem(hz, pstrFilename, true, &i, &ze) != 0 ) return _Failed(_T("Could not find ziped file"));
-        DUILIB_DEBUG(" ");
         DWORD dwSize = ze.unc_size;
-        DUILIB_DEBUG(" ");
         if( dwSize == 0 ) return _Failed(_T("File is empty"));
-        DUILIB_DEBUG(" ");
         if ( dwSize > 4096*1024 ) return _Failed(_T("File too large"));
-        DUILIB_DEBUG(" ");
         BYTE* pByte = new BYTE[ dwSize ];
         int res = UnzipItem(hz, i, pByte, dwSize, 3);
-       	DUILIB_DEBUG(" ");
         if( res != 0x00000000 && res != 0x00000600) {
             delete[] pByte;
             if( !CPaintManagerUI::IsCachedResourceZip() ) CloseZip(hz);
-            DUILIB_DEBUG(" ");
             return _Failed(_T("Could not unzip file"));
         }
         if( !CPaintManagerUI::IsCachedResourceZip() ) CloseZip(hz);

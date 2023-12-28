@@ -327,7 +327,6 @@ LRESULT WindowImplBase::OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& 
 	else{
 		pRoot = builder.Create(GetSkinFile().GetData(), (UINT)0, this, &m_PaintManager);
 	}
-	DUILIB_DEBUG(" ");
 	ASSERT(pRoot);
 	if (pRoot==NULL)
 	{
