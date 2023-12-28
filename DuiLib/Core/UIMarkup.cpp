@@ -381,7 +381,7 @@ bool CMarkup::LoadFromFile(LPCTSTR pstrFilename, int encoding)
     if( CPaintManagerUI::GetResourceZip().IsEmpty() ) {
         sFile += pstrFilename;
         HANDLE hFile = ::CreateFile(sFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-        DUILIB_DEBUG(" ");
+        DUILIB_T_DEBUG(_T("Load file %s sFile %s"),pstrFilename,sFile);
         if( hFile == INVALID_HANDLE_VALUE ) return _Failed(_T("Error opening file"));
         DWORD dwSize = ::GetFileSize(hFile, NULL);
         DUILIB_DEBUG(" ");

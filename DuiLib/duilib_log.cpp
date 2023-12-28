@@ -117,6 +117,50 @@ void  Duilib_DebugOutString(int level,const char* file,int lineno,const char* fm
     return ;
 }
 
+void Duilib_debug_buffer_inner(char* pbuf,int size,const char* file,int lineno)
+{
+    int i;
+    int lasti=0;
+    fprintf(stderr,"[%s:%d] buffer %p size 0x%x:%d",file,lineno,pbuf,size,size);
+
+    i = 0;
+    for(i=0;i<size;i++) {
+        if ((i%16) == 0) {
+            if (i > 0) {
+                fprintf(stderr, "    ");
+                while(lasti != i) {
+                    if (pbuf[lasti] >= ' ' && pbuf[lasti] <= '~') {
+                        fprintf(stderr,"%c",pbuf[lasti]);
+                    } else {
+                        fprintf(stderr,".");
+                    }
+                    lasti ++;
+                }
+            }
+            fprintf(stderr,"\n0x%08x ",i);
+        }
+        fprintf(stderr," 0x%02x",pbuf[i]);
+    }
+
+    if (lasti != size){
+        while((i%16) != 0) {
+            fprintf(stderr,"     ");
+            i ++;
+        }
+        fprintf(stderr,"    ");
+        while(lasti < size) {
+            if (pbuf[lasti] >= ' ' && pbuf[lasti] <= '~') {
+                fprintf(stderr,"%c",pbuf[lasti]);
+            } else {
+                fprintf(stderr,".");
+            }
+            lasti ++;
+        }
+    }
+    fprintf(stderr,"\n");
+    return;
+}
+
 void  Duilib_TDebugOutString(int level,const char* file,int lineno,TCHAR* fmt,...)
 {
 #ifdef UNICODE
@@ -127,6 +171,8 @@ void  Duilib_TDebugOutString(int level,const char* file,int lineno,TCHAR* fmt,..
     wchar_t* pWFile = NULL;
     int wfilesize=0;
     int ret;
+    int linelen=0;
+    int fmtlen=0;
 
     if (level > _Duilib_get_level()) {
         return;
@@ -135,18 +181,26 @@ void  Duilib_TDebugOutString(int level,const char* file,int lineno,TCHAR* fmt,..
     pFmt = new wchar_t[2000];
     pLine = new wchar_t[2000];
     pWhole = new wchar_t[4000];
+    memset(pFmt,0,sizeof(wchar_t) * 2000);
+    memset(pLine,0,sizeof(wchar_t) * 2000);
+    memset(pWhole,0,sizeof(wchar_t) * 4000);
 
     ret = Duilib_AnsiToUnicode((char*)file,&pWFile,&wfilesize);
     if (ret >= 0) {
-        _snwprintf_s(pLine,2000,1999,_T("%s:%d:time(0x%08x)\t"),pWFile,lineno,GetTickCount());    
-        Duilib_AnsiToUnicode(NULL,&pWhole,&wfilesize);
+        ret = _snwprintf_s(pLine,2000,1999,_T("%s:%d:time(0x%08x)\t"),pWFile,lineno,GetTickCount());
+        Duilib_AnsiToUnicode(NULL,&pWFile,&wfilesize);
+        linelen = ret;
     }
+    fprintf(stderr,"[%s:%d] line\n",__FILE__,__LINE__);
     
     va_start(ap,fmt);
-    _vsnwprintf_s(pFmt,2000,1999,fmt,ap);
+    ret = _vsnwprintf_s(pFmt,2000,1999,fmt,ap);
+    fmtlen = ret;
     wcscpy_s(pWhole,4000,pLine);
     wcscat_s(pWhole,4000,pFmt);
     wcscat_s(pWhole,4000,_T("\n"));
+    fmtlen = fmtlen;
+    linelen = linelen;
 
     Duilib_WInnerDebug(pWhole);
 
