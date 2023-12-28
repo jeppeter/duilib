@@ -453,7 +453,7 @@ namespace DuiLib
 
 	CDuiString::operator LPCTSTR() const 
 	{ 
-		DUILIB_DEBUG(" ");
+		DUILIB_DEBUG("m_pstr %p",m_pstr);
 		DUILIB_T_DEBUG(_T("return m_pstr %s",m_pstr));
 		return m_pstr; 
 	}

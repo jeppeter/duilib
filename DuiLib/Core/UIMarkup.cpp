@@ -380,8 +380,9 @@ bool CMarkup::LoadFromFile(LPCTSTR pstrFilename, int encoding)
     CDuiString sFile = CPaintManagerUI::GetResourcePath();
     if( CPaintManagerUI::GetResourceZip().IsEmpty() ) {
         sFile += pstrFilename;
+        DUILIB_T_DEBUG(_T("sFile %s"),sFile.GetData());
         HANDLE hFile = ::CreateFile(sFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-        DUILIB_T_DEBUG(_T("Load file %s sFile %s"),pstrFilename,sFile);
+        DUILIB_T_DEBUG(_T("Load file %s sFile %s"),pstrFilename,sFile.GetData());
         if( hFile == INVALID_HANDLE_VALUE ) return _Failed(_T("Error opening file"));
         DWORD dwSize = ::GetFileSize(hFile, NULL);
         DUILIB_DEBUG(" ");
