@@ -241,15 +241,20 @@ HWND CWindowWnd::CreateDuiWindow( HWND hwndParent, LPCTSTR pstrWindowName,DWORD 
 
 HWND CWindowWnd::Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, const RECT rc, HMENU hMenu)
 {
+	  DUILIB_DEBUG(" ");
     return Create(hwndParent, pstrName, dwStyle, dwExStyle, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, hMenu);
 }
 
 HWND CWindowWnd::Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, int x, int y, int cx, int cy, HMENU hMenu)
 {
+	  DUILIB_DEBUG(" ");
     if( GetSuperClassName() != NULL && !RegisterSuperclass() ) return NULL;
+    DUILIB_DEBUG(" ");
     if( GetSuperClassName() == NULL && !RegisterWindowClass() ) return NULL;
+    DUILIB_DEBUG(" ");
     m_hWnd = ::CreateWindowEx(dwExStyle, GetWindowClassName(), pstrName, dwStyle, x, y, cx, cy, hwndParent, hMenu, CPaintManagerUI::GetInstance(), this);
-    ASSERT(m_hWnd!=NULL);
+    DUILIB_DEBUG("m_hWnd %p",m_hWnd);
+    //ASSERT(m_hWnd!=NULL);
     return m_hWnd;
 }
 

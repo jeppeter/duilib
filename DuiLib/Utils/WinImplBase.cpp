@@ -324,8 +324,10 @@ LRESULT WindowImplBase::OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& 
 		STRINGorID xml(_ttoi(GetSkinFile().GetData()));
 		pRoot = builder.Create(xml, _T("xml"), this, &m_PaintManager);
 	}
-	else
+	else{
 		pRoot = builder.Create(GetSkinFile().GetData(), (UINT)0, this, &m_PaintManager);
+	}
+	DUILIB_DEBUG(" ");
 	ASSERT(pRoot);
 	if (pRoot==NULL)
 	{

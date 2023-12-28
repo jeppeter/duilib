@@ -229,6 +229,7 @@ void CPaintManagerUI::Init(HWND hWnd, LPCTSTR pstrName)
 
 HINSTANCE CPaintManagerUI::GetInstance()
 {
+	  DUILIB_DEBUG(" ");
     return m_hInstance;
 }
 
@@ -279,6 +280,7 @@ HANDLE CPaintManagerUI::GetResourceZipHandle()
 
 void CPaintManagerUI::SetInstance(HINSTANCE hInst)
 {
+	DUILIB_DEBUG(" ");
     m_hInstance = hInst;
 }
 

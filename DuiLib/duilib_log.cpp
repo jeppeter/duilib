@@ -67,10 +67,27 @@ extern "C" void Duilib_InnerDebug(char* pFmtStr)
         fprintf(st_duilib_log_fp,"%s",pFmtStr);
         fflush(st_duilib_log_fp);
     }
+    fprintf(stderr,"%s",pFmtStr);
+    fflush(stderr);
     return ;
 }
 
-extern "C" void Duilib_DebugOutString(int level,const char* file,int lineno,const char* fmt,...)
+extern "C" void Duilib_WInnerDebug(wchar_t* pFmtStr)
+{
+    char* poutstr=NULL;
+    int outlen=0;
+    int ret;
+
+    ret = Duilib_UnicodeToAnsi(pFmtStr,&poutstr,&outlen);
+    if (ret >= 0) {
+        Duilib_InnerDebug(poutstr);
+        Duilib_UnicodeToAnsi(NULL,&poutstr,&outlen);
+    }
+    return;
+
+}
+
+void  Duilib_DebugOutString(int level,const char* file,int lineno,const char* fmt,...)
 {
     char* pFmt=NULL;
     char* pLine=NULL;
@@ -100,8 +117,76 @@ extern "C" void Duilib_DebugOutString(int level,const char* file,int lineno,cons
     return ;
 }
 
+void  Duilib_TDebugOutString(int level,const char* file,int lineno,TCHAR* fmt,...)
+{
+#ifdef UNICODE
+    wchar_t* pFmt=NULL;
+    wchar_t* pLine=NULL;
+    wchar_t* pWhole=NULL;
+    va_list ap;
+    wchar_t* pWFile = NULL;
+    int wfilesize=0;
+    int ret;
 
-extern "C" void Duilib_DebugBufferFmt(int level,const char* file,int lineno,unsigned char* pBuffer,int buflen,const char* fmt,...)
+    if (level > _Duilib_get_level()) {
+        return;
+    }
+
+    pFmt = new wchar_t[2000];
+    pLine = new wchar_t[2000];
+    pWhole = new wchar_t[4000];
+
+    ret = Duilib_AnsiToUnicode((char*)file,&pWFile,&wfilesize);
+    if (ret >= 0) {
+        _snwprintf_s(pLine,2000,1999,_T("%s:%d:time(0x%08x)\t"),pWFile,lineno,GetTickCount());    
+        Duilib_AnsiToUnicode(NULL,&pWhole,&wfilesize);
+    }
+    
+    va_start(ap,fmt);
+    _vsnwprintf_s(pFmt,2000,1999,fmt,ap);
+    wcscpy_s(pWhole,4000,pLine);
+    wcscat_s(pWhole,4000,pFmt);
+    wcscat_s(pWhole,4000,_T("\n"));
+
+    Duilib_WInnerDebug(pWhole);
+
+    delete [] pFmt;
+    delete [] pLine;
+    delete [] pWhole;
+    return ;
+#else
+    char* pFmt=NULL;
+    char* pLine=NULL;
+    char* pWhole=NULL;
+    va_list ap;
+
+    if (level > _Duilib_get_level()) {
+        return;
+    }
+
+    pFmt = new char[2000];
+    pLine = new char[2000];
+    pWhole = new char[4000];
+
+    _snprintf_s(pLine,2000,1999,"%s:%d:time(0x%08x)\t",file,lineno,GetTickCount());
+    va_start(ap,fmt);
+    _vsnprintf_s(pFmt,2000,1999,fmt,ap);
+    strcpy_s(pWhole,4000,pLine);
+    strcat_s(pWhole,4000,pFmt);
+    strcat_s(pWhole,4000,"\n");
+
+    Duilib_InnerDebug(pWhole);
+    delete [] pFmt;
+    delete [] pLine;
+    delete [] pWhole;
+
+    return ;
+#endif
+}
+
+
+
+void Duilib_DebugBufferFmt(int level,const char* file,int lineno,unsigned char* pBuffer,int buflen,const char* fmt,...)
 {
     int fmtlen=2000;
     char*pLine=NULL,*pCur;
@@ -163,6 +248,142 @@ extern "C" void Duilib_DebugBufferFmt(int level,const char* file,int lineno,unsi
     pLine = NULL;
     return ;
 }
+
+void Duilib_TDebugBufferFmt(int level,const char* file,int lineno,unsigned char* pBuffer,int buflen,TCHAR* fmt,...)
+{
+#ifdef UNICODE
+    int fmtlen=2000;
+    wchar_t*pLine=NULL,*pCur;
+    int formedlen;
+    int ret;
+    int i;
+    wchar_t* pWFile=NULL;
+    int wfilesize=0;
+
+    if (level > _Duilib_get_level()) {
+        return;
+    }
+
+    pLine = new wchar_t[fmtlen];
+    pCur = pLine;
+    formedlen = 0;
+
+    ret = Duilib_AnsiToUnicode((char*)file,&pWFile,&wfilesize);
+    if (ret >= 0) {
+        ret = _snwprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,_T("[%s:%d:time(0x%08x)]\tbuffer %p (%d)"),pWFile,lineno,GetTickCount(),pBuffer,buflen);
+        if (ret >= 0) {
+            pCur += ret;
+            formedlen += ret;            
+        }
+        Duilib_AnsiToUnicode(NULL,&pWFile,&wfilesize);
+    }
+
+    
+
+    if(fmt) {
+        va_list ap;
+        va_start(ap,fmt);
+        ret = _vsnwprintf_s(pCur,fmtlen-formedlen,formedlen-formedlen - 1,fmt,ap);
+        pCur += ret;
+        formedlen += ret;
+    }
+
+    for(i=0; i<buflen; i++) {
+        if((formedlen +100)>fmtlen) {
+            Duilib_WInnerDebug(pLine);
+            pCur = pLine;
+            formedlen = 0;
+        }
+        if((i%16)==0) {
+            ret = _snwprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,_T("\n"));
+            Duilib_WInnerDebug(pLine);
+            pCur = pLine;
+            formedlen = 0;
+            ret = _snwprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,_T("[0x%08x]\t"),i);
+            pCur += ret;
+            formedlen += ret;
+        }
+
+        ret = _snwprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,_T("0x%02x "),pBuffer[i]);
+        pCur += ret;
+        formedlen += ret;
+    }
+    ret = _snwprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,_T("\n"));
+    pCur += ret;
+    formedlen += ret;
+
+    if(formedlen > 0) {
+        Duilib_WInnerDebug(pLine);
+        pCur = pLine;
+        formedlen = 0;
+    }
+
+    delete [] pLine;
+    pLine = NULL;
+    return ;
+#else
+    int fmtlen=2000;
+    char*pLine=NULL,*pCur;
+    int formedlen;
+    int ret;
+    int i;
+
+    if (level > _Duilib_get_level()) {
+        return;
+    }
+
+    pLine = new char[fmtlen];
+    pCur = pLine;
+    formedlen = 0;
+
+    ret = _snprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,"[%s:%d:time(0x%08x)]\tbuffer %p (%d)",file,lineno,GetTickCount(),pBuffer,buflen);
+    pCur += ret;
+    formedlen += ret;
+
+    if(fmt) {
+        va_list ap;
+        va_start(ap,fmt);
+        ret = _vsnprintf_s(pCur,fmtlen-formedlen,formedlen-formedlen - 1,fmt,ap);
+        pCur += ret;
+        formedlen += ret;
+    }
+
+    for(i=0; i<buflen; i++) {
+        if((formedlen +100)>fmtlen) {
+            Duilib_InnerDebug(pLine);
+            pCur = pLine;
+            formedlen = 0;
+        }
+        if((i%16)==0) {
+            ret = _snprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,"\n");
+            Duilib_InnerDebug(pLine);
+            pCur = pLine;
+            formedlen = 0;
+            ret = _snprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,"[0x%08x]\t",i);
+            pCur += ret;
+            formedlen += ret;
+        }
+
+        ret = _snprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,"0x%02x ",pBuffer[i]);
+        pCur += ret;
+        formedlen += ret;
+    }
+    ret = _snprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,"\n");
+    pCur += ret;
+    formedlen += ret;
+
+    if(formedlen > 0) {
+        Duilib_InnerDebug(pLine);
+        pCur = pLine;
+        formedlen = 0;
+    }
+
+    delete [] pLine;
+    pLine = NULL;
+    return ;
+#endif
+}
+
 
 
 extern "C" int Duilib_UnicodeToAnsi(wchar_t* pWideChar, char** ppChar, int*pCharSize)

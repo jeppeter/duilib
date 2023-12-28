@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#include <duilib_log.h>
 
 namespace DuiLib {
 
@@ -12,30 +13,39 @@ CControlUI* CDialogBuilder::Create(STRINGorID xml, LPCTSTR type, IDialogBuilderC
 {
 	//资源ID为0-65535，两个字节；字符串指针为4个字节
 	//字符串以<开头认为是XML字符串，否则认为是XML文件
+	  DUILIB_DEBUG("xml ");
 
     if( HIWORD(xml.m_lpstr) != NULL ) {
         if( *(xml.m_lpstr) == _T('<') ) {
+        	DUILIB_DEBUG(" ");
             if( !m_xml.Load(xml.m_lpstr) ) return NULL;
         }
         else {
+        	DUILIB_DEBUG(" ");
             if( !m_xml.LoadFromFile(xml.m_lpstr) ) return NULL;
         }
     }
     else {
         HRSRC hResource = ::FindResource(CPaintManagerUI::GetResourceDll(), xml.m_lpstr, type);
+        	DUILIB_DEBUG(" ");
         if( hResource == NULL ) return NULL;
+        DUILIB_DEBUG(" ");
         HGLOBAL hGlobal = ::LoadResource(CPaintManagerUI::GetResourceDll(), hResource);
         if( hGlobal == NULL ) {
+        	  DUILIB_DEBUG(" ");
             FreeResource(hResource);
             return NULL;
         }
 
         m_pCallback = pCallback;
+        DUILIB_DEBUG(" ");
         if( !m_xml.LoadFromMem((BYTE*)::LockResource(hGlobal), ::SizeofResource(CPaintManagerUI::GetResourceDll(), hResource) )) return NULL;
+        DUILIB_DEBUG(" ");
         ::FreeResource(hResource);
         m_pstrtype = type;
     }
 
+		DUILIB_DEBUG(" ");
     return Create(pCallback, pManager, pParent);
 }
 
@@ -53,6 +63,7 @@ CControlUI* CDialogBuilder::Create(IDialogBuilderCallback* pCallback, CPaintMana
         LPTSTR pstr = NULL;
         for( CMarkupNode node = root.GetChild() ; node.IsValid(); node = node.GetSibling() ) {
             pstrClass = node.GetName();
+            DUILIB_DEBUG(" ");
             if( _tcsicmp(pstrClass, _T("Image")) == 0 ) {
                 nAttributes = node.GetAttributeCount();
                 LPCTSTR pImageName = NULL;
