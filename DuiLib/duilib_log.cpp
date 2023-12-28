@@ -191,7 +191,7 @@ void  Duilib_TDebugOutString(int level,const char* file,int lineno,TCHAR* fmt,..
         Duilib_AnsiToUnicode(NULL,&pWFile,&wfilesize);
         linelen = ret;
     }
-    fprintf(stderr,"[%s:%d] line\n",__FILE__,__LINE__);
+    //fprintf(stderr,"[%s:%d] line\n",__FILE__,__LINE__);
     
     va_start(ap,fmt);
     ret = _vsnwprintf_s(pFmt,2000,1999,fmt,ap);
@@ -247,6 +247,7 @@ void Duilib_DebugBufferFmt(int level,const char* file,int lineno,unsigned char* 
     int formedlen;
     int ret;
     int i;
+    int lasti;
 
     if (level > _Duilib_get_level()) {
         return;
@@ -268,6 +269,7 @@ void Duilib_DebugBufferFmt(int level,const char* file,int lineno,unsigned char* 
         formedlen += ret;
     }
 
+    lasti = 0;
     for(i=0; i<buflen; i++) {
         if((formedlen +100)>fmtlen) {
             Duilib_InnerDebug(pLine);
@@ -275,6 +277,21 @@ void Duilib_DebugBufferFmt(int level,const char* file,int lineno,unsigned char* 
             formedlen = 0;
         }
         if((i%16)==0) {
+            if (i > 0) {
+                ret = _snprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,"    ");
+                pCur += ret;
+                formedlen += ret;
+                while(lasti != i) {
+                    if (pBuffer[lasti] >= ' ' && pBuffer[lasti] <= '~') {
+                        ret = _snprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,"%c",pBuffer[lasti]);
+                    } else {
+                        ret = _snprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,".");
+                    }
+                    pCur += ret;
+                    formedlen += ret;
+                    lasti += 1;
+                }
+            }
             ret = _snprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,"\n");
             Duilib_InnerDebug(pLine);
             pCur = pLine;
@@ -288,6 +305,30 @@ void Duilib_DebugBufferFmt(int level,const char* file,int lineno,unsigned char* 
         pCur += ret;
         formedlen += ret;
     }
+
+    if (lasti < buflen) {
+        while((i%16) != 0) {
+            ret = _snprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,"     ");
+            pCur += ret;
+            formedlen += ret;
+            i ++;
+        }
+        ret = _snprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,"    ");
+        pCur += ret;
+        formedlen += ret;
+
+        while(lasti < buflen) {
+            if (pBuffer[lasti] >= ' ' && pBuffer[lasti] <= '~') {
+                ret = _snprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,"%c",pBuffer[lasti]);
+            } else {
+                ret = _snprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,".");
+            }
+            pCur += ret;
+            formedlen += ret;
+            lasti += 1;
+        }
+    }
+
     ret = _snprintf_s(pCur,fmtlen-formedlen,fmtlen-formedlen-1,"\n");
     pCur += ret;
     formedlen += ret;
